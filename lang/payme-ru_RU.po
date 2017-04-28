@@ -1,0 +1,190 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PayMe\n"
+"POT-Creation-Date: 2017-04-25 16:26+0500\n"
+"PO-Revision-Date: 2017-04-25 16:31+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: payme.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: payme.php:30
+msgid "Payment system Payme"
+msgstr "Платежная система Payme"
+
+#: payme.php:38
+msgid "PAYME"
+msgstr "PAYME"
+
+#: payme.php:39
+msgid "Setup payments parameters."
+msgstr "Отправить параметры платеж."
+
+#: payme.php:49
+msgid "Enable/Disable"
+msgstr "Включен/Отключен"
+
+#: payme.php:49
+msgid "Enabled"
+msgstr "Включен"
+
+#: payme.php:50
+msgid "MERCHANT ID"
+msgstr "MERCHANT ID"
+
+#: payme.php:50
+msgid "Copy Merchant ID from your account page in Payme system"
+msgstr "Скопируйте Merchant ID из личного кабинета поставщика Payme"
+
+#: payme.php:50
+msgid "KEY"
+msgstr "KEY"
+
+#: payme.php:50
+msgid "Copy KEY from your account page in Payme system"
+msgstr "Скопируйте KEY из личного кабинета поставщика Payme"
+
+#: payme.php:57
+msgid "Payment for Order №"
+msgstr "Оплата заказа №"
+
+#: payme.php:65
+msgid "Pay"
+msgstr "Оплатить"
+
+#: payme.php:66
+msgid "Cancel payment and return back to card"
+msgstr "Отказаться от платежа и вернуться"
+
+#: payme.php:78
+msgid "Thank you for your order, press button to pay."
+msgstr "Спасибо за заказ. Нажимте \"Оплатить\" для завершения заказа."
+
+#: payme.php:166
+msgid "Error during CreateTransaction_ru"
+msgstr "Ошибка метода CreateTransaction"
+
+#: payme.php:166
+msgid "Error during CreateTransaction_uz"
+msgstr "CreateTransaction so`rovda xato"
+
+#: payme.php:166
+msgid "Error during CreateTransaction_en"
+msgstr "Error during CreateTransaction"
+
+#: payme.php:191
+msgid "Transaction was cancelled or refunded_ru"
+msgstr "Транзакция была отменена или возвращена"
+
+#: payme.php:191
+msgid "Transaction was cancelled or refunded_uz"
+msgstr "Tranzaksiya bekor qilingan yoki qaytarilgan"
+
+#: payme.php:191
+msgid "Transaction was cancelled or refunded_en"
+msgstr "Transaction was cancelled or refunded"
+
+#: payme.php:255
+msgid "Order number cannot be not found_ru"
+msgstr "Номер заказа не найден"
+
+#: payme.php:255
+msgid "Order number cannot be not found_uz"
+msgstr "Buyurtma raqami mavjud emas"
+
+#: payme.php:255
+msgid "Order number cannot be not found_en"
+msgstr "Order number cannot be found"
+
+#: payme.php:259
+msgid "Order ammount is incorrect_ru"
+msgstr "Сумма платежа не верна"
+
+#: payme.php:259
+msgid "Order ammount is incorrect_uz"
+msgstr "To`lov summasi noto`gri"
+
+#: payme.php:260
+msgid "Order ammount is incorrect_en"
+msgstr "Order ammount is incorrec"
+
+#: payme.php:264
+msgid "Unknown error_ru"
+msgstr "Неизвестная ошибка"
+
+#: payme.php:264
+msgid "Unknown error_uz"
+msgstr "Noma'lum xato"
+
+#: payme.php:264
+msgid "Unknown error_en"
+msgstr "Unknown error"
+
+#: payme.php:268
+msgid "Transaction number is wrong_ru"
+msgstr "Номер транзакции не верен"
+
+#: payme.php:268
+msgid "Transaction number is wrong_uz"
+msgstr "Tranzaksiya raqami to`g`ri emas"
+
+#: payme.php:269
+msgid "Transaction number is wrong_en"
+msgstr "Transaction number is wrong"
+
+#: payme.php:274
+msgid "It is impossible to cancel. The order is complited_ru"
+msgstr "Невозможно отменить. Заказ выполнен"
+
+#: payme.php:274
+msgid "It is impossible to cancel. The order is complited_uz"
+msgstr "Bekor qilish mumkin emas. Buyurtma amalga oshirilgan"
+
+#: payme.php:274
+msgid "It is impossible to cancel. The order is complited_en"
+msgstr "It is impossible to cancel. The order is complited"
+
+#: payme.php:279
+msgid "Error during authorization_ru"
+msgstr "Ошибка при авторизации"
+
+#: payme.php:279
+msgid "Error during authorization_uz"
+msgstr "Avtorizatsiya xatosi"
+
+#: payme.php:280
+msgid "Error during authorization_en"
+msgstr "Error during authorization"
+
+#. Plugin Name of the plugin/theme
+msgid "Payme"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://maorif.com"
+msgstr "http://maorif.com"
+
+#. Description of the plugin/theme
+msgid "Payme Plugin for WooCommerce"
+msgstr "Payme Plugin for WooCommerce"
+
+#. Author of the plugin/theme
+msgid "richman@mail.ru"
+msgstr "richman@mail.ru"
+
+#~ msgid "PayMe"
+#~ msgstr "PayMe"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PayMe\n"
 "POT-Creation-Date: 2017-05-02 17:08+0500\n"
-"PO-Revision-Date: 2017-05-02 17:14+0500\n"
+"PO-Revision-Date: 2017-05-02 18:09+0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -53,15 +53,15 @@ msgstr "ID поставщика"
 
 #: payme.php:86
 msgid "Obtain and set Merchant ID from the Paycom Merchant Cabinet"
-msgstr "Получите и поставьте ID поставщика с кабинета поставщика на Paycom-е"
+msgstr "Используйте ID поставщика из кабинета мерчанта"
 
 #: payme.php:90
 msgid "KEY"
-msgstr "Ключ (пароль) кассы"
+msgstr "Ключ - пароль кассы"
 
 #: payme.php:92
 msgid "Obtain and set KEY from the Paycom Merchant Cabinet"
-msgstr "Получите и поставьте ключ с кабинета поставщика на Paycom-е"
+msgstr "Используйте пароль от кабинета мерчанта"
 
 #: payme.php:96
 msgid "Checkout URL"
@@ -69,7 +69,7 @@ msgstr "Checkout URL"
 
 #: payme.php:98
 msgid "Set Paycom Checkout URL to submit a payment"
-msgstr "Укажите URL для отправки запросов на оплату"
+msgstr "Установите Paycom Checkout URL для подтверждения оплаты"
 
 #: payme.php:115
 #, php-format
@@ -86,11 +86,11 @@ msgstr "Отказаться от платежа и вернуться"
 
 #: payme.php:154
 msgid "Thank you for your order, press \"Pay\" button to continue."
-msgstr "Спасибо за заказ. Нажмите \"Оплатить\" для завершения заказа."
+msgstr "Спасибо за покупку. Нажмите \"Оплатить\" для продолжения."
 
 #: payme.php:500
 msgid "Cannot change the password_ru"
-msgstr "Не удалось изменить пароля"
+msgstr "Не удалось изменить пароль"
 
 #: payme.php:501
 msgid "Cannot change the password_uz"
@@ -102,7 +102,7 @@ msgstr "Cannot change the password"
 
 #: payme.php:519
 msgid "Could not parse JSON_ru"
-msgstr "Неправильные JSON данные"
+msgstr "Парсинг JSON невозможен"
 
 #: payme.php:520
 msgid "Could not parse JSON_uz"
@@ -126,7 +126,7 @@ msgstr "Order number cannot be found"
 
 #: payme.php:557
 msgid "Other transaction for this order is in progress_ru"
-msgstr "Другая транзакция для этого заказа в процессе"
+msgstr "Оплата запущена. Повторная оплата - невозможна"
 
 #: payme.php:558
 msgid "Other transaction for this order is in progress_uz"
@@ -138,11 +138,11 @@ msgstr "Other transaction for this order is in progress"
 
 #: payme.php:576
 msgid "Order amount is incorrect_ru"
-msgstr "Сумма платежа не верна"
+msgstr "Неверная сумма заказа"
 
 #: payme.php:577
 msgid "Order amount is incorrect_uz"
-msgstr "To`lov summasi noto`gri"
+msgstr "Buyurtma summasi noto`gri"
 
 #: payme.php:578
 msgid "Order amount is incorrect_en"
@@ -174,7 +174,7 @@ msgstr "Unknown method"
 
 #: payme.php:633
 msgid "Transaction number is wrong_ru"
-msgstr "Номер транзакции не верен"
+msgstr "Неверный номер транзакции"
 
 #: payme.php:634
 msgid "Transaction number is wrong_uz"
@@ -186,7 +186,7 @@ msgstr "Transaction number is wrong"
 
 #: payme.php:652
 msgid "Transaction was cancelled or refunded_ru"
-msgstr "Транзакция была отменена или возвращена"
+msgstr "Транзакция отменена или возвращена"
 
 #: payme.php:653
 msgid "Transaction was cancelled or refunded_uz"
@@ -198,7 +198,7 @@ msgstr "Transaction was cancelled or refunded"
 
 #: payme.php:671
 msgid "It is impossible to cancel. The order is completed_ru"
-msgstr "Невозможно отменить. Заказ выполнен"
+msgstr "Заказ выполнен. Отмена невозможна"
 
 #: payme.php:672
 msgid "It is impossible to cancel. The order is completed_uz"
@@ -210,7 +210,7 @@ msgstr "It is impossible to cancel. The order is complited"
 
 #: payme.php:691
 msgid "Error during authorization_ru"
-msgstr "Ошибка при авторизации"
+msgstr "Ошибка авторизации"
 
 #: payme.php:692
 msgid "Error during authorization_uz"
@@ -227,7 +227,7 @@ msgstr "https://paycom.uz"
 
 #. Description of the plugin/theme
 msgid "Payme Checkout Plugin for WooCommerce"
-msgstr "WooCommerce плагин для Payme"
+msgstr "Плагин WooCommerce для Payme"
 
 #. Author of the plugin/theme
 #| msgid "richman@mail.ru"

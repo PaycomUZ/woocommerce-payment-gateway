@@ -157,9 +157,12 @@ FORM;
          */
         public function callback()
         {
-            // todo: need improvement, handle invalid JSON
             // Parse payload
             $payload = json_decode(file_get_contents('php://input'), true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) { // handle Parse error
+                $this->respond($this->error_invalid_json());
+            }
 
             // Authorize client
             $headers = getallheaders();
@@ -341,19 +344,7 @@ FORM;
                     ]
                 ];
             } elseif ($order->status == "cancelled" || $order->status == "refunded") { // handle cancelled order
-                $response = [
-                    "error" => [
-                        "code" => -31008,
-                        "message" => [
-                            "ru" => __('Transaction was cancelled or refunded_ru', 'payme'),
-                            "uz" => __('Transaction was cancelled or refunded_uz', 'payme'),
-                            "en" => __('Transaction was cancelled or refunded_en', 'payme')
-                        ],
-                        "data" => "order"
-                    ],
-                    "result" => null,
-                    "id" => $payload['id']
-                ];
+                $response = $this->error_cancelled_transaction($payload);
             } else {
                 $response = $this->error_unknown($payload);
             }
@@ -517,6 +508,25 @@ FORM;
             return $response;
         }
 
+        private function error_invalid_json()
+        {
+            $response = [
+                "error" => [
+                    "code" => -32700,
+                    "message" => [
+                        "ru" => __('Could not parse JSON_ru', 'payme'),
+                        "uz" => __('Could not parse JSON_uz', 'payme'),
+                        "en" => __('Could not parse JSON_en', 'payme')
+                    ],
+                    "data" => null
+                ],
+                "result" => null,
+                "id" => 0
+            ];
+
+            return $response;
+        }
+
         private function error_order_id($payload)
         {
             $response = [
@@ -623,6 +633,25 @@ FORM;
                         "en" => __('Transaction number is wrong_en', 'payme')
                     ],
                     "data" => "id"
+                ],
+                "result" => null,
+                "id" => $payload['id']
+            ];
+
+            return $response;
+        }
+
+        private function error_cancelled_transaction($payload)
+        {
+            $response = [
+                "error" => [
+                    "code" => -31008,
+                    "message" => [
+                        "ru" => __('Transaction was cancelled or refunded_ru', 'payme'),
+                        "uz" => __('Transaction was cancelled or refunded_uz', 'payme'),
+                        "en" => __('Transaction was cancelled or refunded_en', 'payme')
+                    ],
+                    "data" => "order"
                 ],
                 "result" => null,
                 "id" => $payload['id']

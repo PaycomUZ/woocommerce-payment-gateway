@@ -535,9 +535,9 @@ FORM;
                 "error" => [
                     "code" => -31099,
                     "message" => [
-                        "ru" => __('Order number cannot be not found_ru', 'payme'),
-                        "uz" => __('Order number cannot be not found_uz', 'payme'),
-                        "en" => __('Order number cannot be not found_en', 'payme')
+                        "ru" => __('Order number cannot be found_ru', 'payme'),
+                        "uz" => __('Order number cannot be found_uz', 'payme'),
+                        "en" => __('Order number cannot be found_en', 'payme')
                     ],
                     "data" => "order"
                 ],
@@ -573,9 +573,9 @@ FORM;
                 "error" => [
                     "code" => -31001,
                     "message" => [
-                        "ru" => __('Order ammount is incorrect_ru', 'payme'),
-                        "uz" => __('Order ammount is incorrect_uz', 'payme'),
-                        "en" => __('Order ammount is incorrect_en', 'payme')
+                        "ru" => __('Order amount is incorrect_ru', 'payme'),
+                        "uz" => __('Order amount is incorrect_uz', 'payme'),
+                        "en" => __('Order amount is incorrect_en', 'payme')
                     ],
                     "data" => "amount"
                 ],

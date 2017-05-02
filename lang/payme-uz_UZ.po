@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PayMe\n"
-"POT-Creation-Date: 2017-05-02 17:08+0500\n"
-"PO-Revision-Date: 2017-05-02 17:14+0500\n"
+"POT-Creation-Date: 2017-05-02 17:21+0500\n"
+"PO-Revision-Date: 2017-05-02 17:35+0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ru_RU\n"
+"Language: uz_UZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: payme.php:39
 msgid "Payment system Payme"
-msgstr "Платежная система Payme"
+msgstr "Payme to`lov tizimi"
 
 #. Plugin Name of the plugin/theme
 #: payme.php:59
@@ -33,35 +33,35 @@ msgstr "Payme"
 
 #: payme.php:61
 msgid "Configure checkout settings"
-msgstr "Настройте параметры оплаты"
+msgstr "To`lov parametrlarini sozlang"
 
 #: payme.php:64
 msgid "Your Web Cash Endpoint URL to handle requests is:"
-msgstr "Ваш URL для обработки запросов:"
+msgstr "Sizning so`rovlarni qayta ishlash URL-ingiz"
 
 #: payme.php:78
 msgid "Enable/Disable"
-msgstr "Включен/Отключен"
+msgstr "Yoqilgan/O`chirilgan"
 
 #: payme.php:80
 msgid "Enabled"
-msgstr "Включен"
+msgstr "Yoqilgan"
 
 #: payme.php:84
 msgid "Merchant ID"
-msgstr "ID поставщика"
+msgstr "Xizmat ko`rsatuvchi IDsi"
 
 #: payme.php:86
 msgid "Obtain and set Merchant ID from the Paycom Merchant Cabinet"
-msgstr "Получите и поставьте ID поставщика с кабинета поставщика на Paycom-е"
+msgstr "Xizmat ko`rsatuvchi IDsini Paycom-dagi kabinetdan oling va o`rnating"
 
 #: payme.php:90
 msgid "KEY"
-msgstr "Ключ (пароль) кассы"
+msgstr "Kassa kaliti (paroli)"
 
 #: payme.php:92
 msgid "Obtain and set KEY from the Paycom Merchant Cabinet"
-msgstr "Получите и поставьте ключ с кабинета поставщика на Paycom-е"
+msgstr "Kalitni (parolni) Paycom-dagi kabinetdan oling va o`rnating"
 
 #: payme.php:96
 msgid "Checkout URL"
@@ -69,24 +69,26 @@ msgstr "Checkout URL"
 
 #: payme.php:98
 msgid "Set Paycom Checkout URL to submit a payment"
-msgstr "Укажите URL для отправки запросов на оплату"
+msgstr "To`lov uchun so`rovlarni yuborish URL-ini ko`rsating"
 
 #: payme.php:115
 #, php-format
 msgid "Payment for Order #%1$s"
-msgstr "Оплата заказа №%1$s"
+msgstr "№%1$s harid uchun to`lov"
 
 #: payme.php:120
 msgid "Pay"
-msgstr "Оплатить"
+msgstr "To`lash"
 
 #: payme.php:121
 msgid "Cancel payment and return back"
-msgstr "Отказаться от платежа и вернуться"
+msgstr "To`lovni bekor qilib, orqaga qaytish"
 
 #: payme.php:154
 msgid "Thank you for your order, press \"Pay\" button to continue."
-msgstr "Спасибо за заказ. Нажмите \"Оплатить\" для завершения заказа."
+msgstr ""
+"Haridingiz uchun rahmat. Haridni amalga oshirish uchun \"To`lash\"ni "
+"bosing."
 
 #: payme.php:500
 msgid "Cannot change the password_ru"
@@ -221,16 +223,14 @@ msgid "Error during authorization_en"
 msgstr "Error during authorization"
 
 #. Plugin URI of the plugin/theme
-#| msgid "http://maorif.com"
 msgid "https://paycom.uz"
 msgstr "https://paycom.uz"
 
 #. Description of the plugin/theme
 msgid "Payme Checkout Plugin for WooCommerce"
-msgstr "WooCommerce плагин для Payme"
+msgstr "WooCommerce uchun Payme plagini"
 
 #. Author of the plugin/theme
-#| msgid "richman@mail.ru"
 msgid "richman@mail.ru, support@paycom.uz"
 msgstr "richman@mail.ru, support@paycom.uz"
 

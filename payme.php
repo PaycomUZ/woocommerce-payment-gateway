@@ -112,11 +112,13 @@ function woocommerce_payme()
             // format the amount
             $sum = number_format($sum, 0, '.', '');
 
-            $desc = __('Payment for Order #', 'payme') . $order_id;
-            $lang = get_locale() == 'ru_RU' ? 'ru' : 'en';
+            $description = sprintf(__('Payment for Order #%1$s', 'payme'), $order_id);
+
+            $lang_codes = ['ru_RU' => 'ru', 'en_US' => 'en', 'uz_UZ' => 'uz'];
+            $lang = isset($lang_codes[get_locale()]) ? $lang_codes[get_locale()] : 'en';
 
             $label_pay = __('Pay', 'payme');
-            $label_cancel = __('Cancel payment and return back to card', 'payme');
+            $label_cancel = __('Cancel payment and return back', 'payme');
 
             $form = <<<FORM
 <form action="{$this->checkout_url}" method="POST" id="payme_form">
@@ -124,6 +126,7 @@ function woocommerce_payme()
 <input type="hidden" name="amount" value="$sum">
 <input type="hidden" name="merchant" value="{$this->merchant_id}">
 <input type="hidden" name="lang" value="$lang">
+<input type="hidden" name="description" value="$description">
 <input type="submit" class="button alt" id="submit_payme_form" value="$label_pay">
 <a class="button cancel" href="{$order->get_cancel_order_url()}">$label_cancel</a>
 </form>
@@ -333,7 +336,6 @@ FORM;
                 // Mark order as completed
                 $order->update_status('completed');
                 $order->payment_complete($payload['params']['id']);
-                $order->reduce_order_stock();
             } elseif ($order->status == "completed") { // handle existing Perform request
                 $response = [
                     "id" => $payload['id'],

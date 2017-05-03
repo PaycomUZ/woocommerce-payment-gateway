@@ -252,6 +252,46 @@ FORM;
             return round(microtime(true) * 1000);
         }
 
+        /**
+         * Get order's create time.
+         * @param WC_Order $order order
+         * @return float create time as timestamp
+         */
+        private function get_create_time(WC_Order $order)
+        {
+            return (double)get_post_meta($order->get_id(), '_payme_create_time', true);
+        }
+
+        /**
+         * Get order's perform time.
+         * @param WC_Order $order order
+         * @return float perform time as timestamp
+         */
+        private function get_perform_time(WC_Order $order)
+        {
+            return (double)get_post_meta($order->get_id(), '_payme_perform_time', true);
+        }
+
+        /**
+         * Get order's cancel time.
+         * @param WC_Order $order order
+         * @return float cancel time as timestamp
+         */
+        private function get_cancel_time(WC_Order $order)
+        {
+            return (double)get_post_meta($order->get_id(), '_payme_cancel_time', true);
+        }
+
+        /**
+         * Get order's transaction id
+         * @param WC_Order $order order
+         * @return string saved transaction id
+         */
+        private function get_transaction_id(WC_Order $order)
+        {
+            return (string)get_post_meta($order->get_id(), '_payme_transaction_id', true);
+        }
+
         private function CheckPerformTransaction($payload)
         {
             $order = $this->get_order($payload);
@@ -282,7 +322,7 @@ FORM;
             } else {
                 $create_time = $this->current_timestamp();
                 $transaction_id = $payload['params']['id'];
-                $saved_transaction_id = get_post_meta($order->get_id(), '_payme_transaction_id', true);
+                $saved_transaction_id = $this->get_transaction_id($order);
 
                 if ($order->status == "pending") { // handle new transaction
                     // Save time and transaction id
@@ -332,7 +372,7 @@ FORM;
                     "id" => $payload['id'],
                     "result" => [
                         "transaction" => "000" . $order->get_id(),
-                        "perform_time" => (int)get_post_meta($order->get_id(), '_payme_perform_time', true),
+                        "perform_time" => $this->get_perform_time($order),
                         "state" => 2
                     ]
                 ];
@@ -345,7 +385,7 @@ FORM;
                     "id" => $payload['id'],
                     "result" => [
                         "transaction" => "000" . $order->get_id(),
-                        "perform_time" => (int)get_post_meta($order->get_id(), '_payme_perform_time', true),
+                        "perform_time" => $this->get_perform_time($order),
                         "state" => 2
                     ]
                 ];
@@ -364,12 +404,12 @@ FORM;
             $order = $this->get_order_by_transaction($payload);
 
             // Get transaction id from the order
-            $saved_transaction_id = get_post_meta($order->get_id(), '_payme_transaction_id', true);
+            $saved_transaction_id = $this->get_transaction_id($order);
 
             $response = [
                 "id" => $payload['id'],
                 "result" => [
-                    "create_time" => (int)get_post_meta($order->get_id(), '_payme_create_time', true),
+                    "create_time" => $this->get_create_time($order),
                     "perform_time" => 0,
                     "cancel_time" => 0,
                     "transaction" => "000" . $order->get_id(),
@@ -392,14 +432,14 @@ FORM;
                     case 'cancelled':
                         $response['state'] = -1;
                         $response['reason'] = 2;
-                        $response['cancel_time'] = (int)get_post_meta($order->get_id(), '_payme_cancel_time', true);
+                        $response['cancel_time'] = $this->get_cancel_time($order);
                         break;
 
                     case 'refunded':
                         $response['state'] = -2;
                         $response['reason'] = 5;
-                        $response['perform_time'] = (int)get_post_meta($order->get_id(), '_payme_perform_time', true);
-                        $response['cancel_time'] = (int)get_post_meta($order->get_id(), '_payme_cancel_time', true);
+                        $response['perform_time'] = $this->get_perform_time($order);
+                        $response['cancel_time'] = $this->get_cancel_time($order);
                         break;
 
                     default:
@@ -418,7 +458,7 @@ FORM;
             $order = $this->get_order_by_transaction($payload);
 
             $transaction_id = $payload['params']['id'];
-            $saved_transaction_id = get_post_meta($order->get_id(), '_payme_transaction_id', true);
+            $saved_transaction_id = $this->get_transaction_id($order);
 
             if ($transaction_id == $saved_transaction_id) {
 
@@ -447,12 +487,12 @@ FORM;
                         break;
 
                     case 'cancelled':
-                        $response['cancel_time'] = (int)get_post_meta($order->get_id(), '_payme_cancel_time', true);
+                        $response['cancel_time'] = $this->get_cancel_time($order);
                         $response['state'] = -1;
                         break;
 
                     case 'refunded':
-                        $response['cancel_time'] = (int)get_post_meta($order->get_id(), '_payme_cancel_time', true);
+                        $response['cancel_time'] = $this->get_cancel_time($order);
                         $response['state'] = -2;
                         break;
 

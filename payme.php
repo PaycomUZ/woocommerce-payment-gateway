@@ -422,24 +422,24 @@ FORM;
             if ($transaction_id == $saved_transaction_id) {
                 switch ($order->status) {
                     case 'processing':
-                        $response['state'] = 1;
+                        $response['result']['state'] = 1;
                         break;
 
                     case 'completed':
-                        $response['state'] = 2;
+                        $response['result']['state'] = 2;
                         break;
 
                     case 'cancelled':
-                        $response['state'] = -1;
-                        $response['reason'] = 2;
-                        $response['cancel_time'] = $this->get_cancel_time($order);
+                        $response['result']['state'] = -1;
+                        $response['result']['reason'] = 2;
+                        $response['result']['cancel_time'] = $this->get_cancel_time($order);
                         break;
 
                     case 'refunded':
-                        $response['state'] = -2;
-                        $response['reason'] = 5;
-                        $response['perform_time'] = $this->get_perform_time($order);
-                        $response['cancel_time'] = $this->get_cancel_time($order);
+                        $response['result']['state'] = -2;
+                        $response['result']['reason'] = 5;
+                        $response['result']['perform_time'] = $this->get_perform_time($order);
+                        $response['result']['cancel_time'] = $this->get_cancel_time($order);
                         break;
 
                     default:
@@ -477,23 +477,23 @@ FORM;
                     case 'pending':
                         add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
                         $order->update_status('cancelled'); // Change status to Cancelled
-                        $response['state'] = -1;
+                        $response['result']['state'] = -1;
                         break;
 
                     case 'completed':
                         add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
                         $order->update_status('refunded'); // Change status to Refunded
-                        $response['state'] = -2;
+                        $response['result']['state'] = -2;
                         break;
 
                     case 'cancelled':
-                        $response['cancel_time'] = $this->get_cancel_time($order);
-                        $response['state'] = -1;
+                        $response['result']['cancel_time'] = $this->get_cancel_time($order);
+                        $response['result']['state'] = -1;
                         break;
 
                     case 'refunded':
-                        $response['cancel_time'] = $this->get_cancel_time($order);
-                        $response['state'] = -2;
+                        $response['result']['cancel_time'] = $this->get_cancel_time($order);
+                        $response['result']['state'] = -2;
                         break;
 
                     default:

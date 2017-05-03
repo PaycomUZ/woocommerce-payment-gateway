@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PayMe\n"
-"POT-Creation-Date: 2017-05-02 17:08+0500\n"
-"PO-Revision-Date: 2017-05-02 18:09+0500\n"
+"POT-Creation-Date: 2017-05-03 11:37+0500\n"
+"PO-Revision-Date: 2017-05-03 11:38+0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -88,140 +88,51 @@ msgstr "Отказаться от платежа и вернуться"
 msgid "Thank you for your order, press \"Pay\" button to continue."
 msgstr "Спасибо за покупку. Нажмите \"Оплатить\" для продолжения."
 
-#: payme.php:500
-msgid "Cannot change the password_ru"
+#: payme.php:504 payme.php:505 payme.php:506
+msgid "Cannot change the password"
 msgstr "Не удалось изменить пароль"
 
-#: payme.php:501
-msgid "Cannot change the password_uz"
-msgstr "Parolni o`zgartirish imkoni bo`lmadi"
-
-#: payme.php:502
-msgid "Cannot change the password_en"
-msgstr "Cannot change the password"
-
-#: payme.php:519
-msgid "Could not parse JSON_ru"
+#: payme.php:523 payme.php:524 payme.php:525
+msgid "Could not parse JSON"
 msgstr "Парсинг JSON невозможен"
 
-#: payme.php:520
-msgid "Could not parse JSON_uz"
-msgstr "JSON ma`lumotlarda xatolik mavjud"
-
-#: payme.php:521
-msgid "Could not parse JSON_en"
-msgstr "Could not parse JSON"
-
-#: payme.php:538
-msgid "Order number cannot be found_ru"
+#: payme.php:542 payme.php:543 payme.php:544
+msgid "Order number cannot be found"
 msgstr "Номер заказа не найден"
 
-#: payme.php:539
-msgid "Order number cannot be found_uz"
-msgstr "Buyurtma raqami mavjud emas"
-
-#: payme.php:540
-msgid "Order number cannot be found_en"
-msgstr "Order number cannot be found"
-
-#: payme.php:557
-msgid "Other transaction for this order is in progress_ru"
+#: payme.php:561 payme.php:562 payme.php:563
+msgid "Other transaction for this order is in progress"
 msgstr "Оплата запущена. Повторная оплата - невозможна"
 
-#: payme.php:558
-msgid "Other transaction for this order is in progress_uz"
-msgstr "Bu harid uchun boshqa tranzaksiya mavjud"
-
-#: payme.php:559
-msgid "Other transaction for this order is in progress_en"
-msgstr "Other transaction for this order is in progress"
-
-#: payme.php:576
-msgid "Order amount is incorrect_ru"
+#: payme.php:580 payme.php:581 payme.php:582
+msgid "Order amount is incorrect"
 msgstr "Неверная сумма заказа"
 
-#: payme.php:577
-msgid "Order amount is incorrect_uz"
-msgstr "Buyurtma summasi noto`gri"
-
-#: payme.php:578
-msgid "Order amount is incorrect_en"
-msgstr "Order amount is incorrect"
-
-#: payme.php:595
-msgid "Unknown error_ru"
+#: payme.php:599 payme.php:600 payme.php:601
+msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
-#: payme.php:596
-msgid "Unknown error_uz"
-msgstr "Noma'lum xatolik"
-
-#: payme.php:597
-msgid "Unknown error_en"
-msgstr "Unknown error"
-
-#: payme.php:614
-msgid "Unknown method_ru"
+#: payme.php:618 payme.php:619 payme.php:620
+msgid "Unknown method"
 msgstr "Неизвестный метод"
 
-#: payme.php:615
-msgid "Unknown method_uz"
-msgstr "Noma'lum metod"
-
-#: payme.php:616
-msgid "Unknown method_en"
-msgstr "Unknown method"
-
-#: payme.php:633
-msgid "Transaction number is wrong_ru"
+#: payme.php:637 payme.php:638 payme.php:639
+msgid "Transaction number is wrong"
 msgstr "Неверный номер транзакции"
 
-#: payme.php:634
-msgid "Transaction number is wrong_uz"
-msgstr "Noto`g`ri tranzaksiya raqami"
-
-#: payme.php:635
-msgid "Transaction number is wrong_en"
-msgstr "Transaction number is wrong"
-
-#: payme.php:652
-msgid "Transaction was cancelled or refunded_ru"
+#: payme.php:656 payme.php:657 payme.php:658
+msgid "Transaction was cancelled or refunded"
 msgstr "Транзакция отменена или возвращена"
 
-#: payme.php:653
-msgid "Transaction was cancelled or refunded_uz"
-msgstr "Tranzaksiya bekor qilingan yoki qaytarilgan"
-
-#: payme.php:654
-msgid "Transaction was cancelled or refunded_en"
-msgstr "Transaction was cancelled or refunded"
-
-#: payme.php:671
-msgid "It is impossible to cancel. The order is completed_ru"
+#: payme.php:675 payme.php:676 payme.php:677
+msgid "It is impossible to cancel. The order is completed"
 msgstr "Заказ выполнен. Отмена невозможна"
 
-#: payme.php:672
-msgid "It is impossible to cancel. The order is completed_uz"
-msgstr "Bekor qilish mumkin emas. Buyurtma amalga oshirilgan"
-
-#: payme.php:673
-msgid "It is impossible to cancel. The order is completed_en"
-msgstr "It is impossible to cancel. The order is complited"
-
-#: payme.php:691
-msgid "Error during authorization_ru"
+#: payme.php:695 payme.php:696 payme.php:697
+msgid "Error during authorization"
 msgstr "Ошибка авторизации"
 
-#: payme.php:692
-msgid "Error during authorization_uz"
-msgstr "Avtorizatsiya xatosi"
-
-#: payme.php:693
-msgid "Error during authorization_en"
-msgstr "Error during authorization"
-
 #. Plugin URI of the plugin/theme
-#| msgid "http://maorif.com"
 msgid "https://paycom.uz"
 msgstr "https://paycom.uz"
 
@@ -230,9 +141,74 @@ msgid "Payme Checkout Plugin for WooCommerce"
 msgstr "Плагин WooCommerce для Payme"
 
 #. Author of the plugin/theme
-#| msgid "richman@mail.ru"
 msgid "richman@mail.ru, support@paycom.uz"
 msgstr "richman@mail.ru, support@paycom.uz"
+
+#~ msgid "Cannot change the password_uz"
+#~ msgstr "Parolni o`zgartirish imkoni bo`lmadi"
+
+#~ msgid "Cannot change the password_en"
+#~ msgstr "Cannot change the password"
+
+#~ msgid "Could not parse JSON_uz"
+#~ msgstr "JSON ma`lumotlarda xatolik mavjud"
+
+#~ msgid "Could not parse JSON_en"
+#~ msgstr "Could not parse JSON"
+
+#~ msgid "Order number cannot be found_uz"
+#~ msgstr "Buyurtma raqami mavjud emas"
+
+#~ msgid "Order number cannot be found_en"
+#~ msgstr "Order number cannot be found"
+
+#~ msgid "Other transaction for this order is in progress_uz"
+#~ msgstr "Bu harid uchun boshqa tranzaksiya mavjud"
+
+#~ msgid "Other transaction for this order is in progress_en"
+#~ msgstr "Other transaction for this order is in progress"
+
+#~ msgid "Order amount is incorrect_uz"
+#~ msgstr "Buyurtma summasi noto`gri"
+
+#~ msgid "Order amount is incorrect_en"
+#~ msgstr "Order amount is incorrect"
+
+#~ msgid "Unknown error_uz"
+#~ msgstr "Noma'lum xatolik"
+
+#~ msgid "Unknown error_en"
+#~ msgstr "Unknown error"
+
+#~ msgid "Unknown method_uz"
+#~ msgstr "Noma'lum metod"
+
+#~ msgid "Unknown method_en"
+#~ msgstr "Unknown method"
+
+#~ msgid "Transaction number is wrong_uz"
+#~ msgstr "Noto`g`ri tranzaksiya raqami"
+
+#~ msgid "Transaction number is wrong_en"
+#~ msgstr "Transaction number is wrong"
+
+#~ msgid "Transaction was cancelled or refunded_uz"
+#~ msgstr "Tranzaksiya bekor qilingan yoki qaytarilgan"
+
+#~ msgid "Transaction was cancelled or refunded_en"
+#~ msgstr "Transaction was cancelled or refunded"
+
+#~ msgid "It is impossible to cancel. The order is completed_uz"
+#~ msgstr "Bekor qilish mumkin emas. Buyurtma amalga oshirilgan"
+
+#~ msgid "It is impossible to cancel. The order is completed_en"
+#~ msgstr "It is impossible to cancel. The order is complited"
+
+#~ msgid "Error during authorization_uz"
+#~ msgstr "Avtorizatsiya xatosi"
+
+#~ msgid "Error during authorization_en"
+#~ msgstr "Error during authorization"
 
 #~ msgid "PAYME"
 #~ msgstr "PAYME"

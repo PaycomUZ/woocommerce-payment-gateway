@@ -501,9 +501,9 @@ FORM;
                 "error" => [
                     "code" => -32400,
                     "message" => [
-                        "ru" => __('Cannot change the password_ru', 'payme'),
-                        "uz" => __('Cannot change the password_uz', 'payme'),
-                        "en" => __('Cannot change the password_en', 'payme')
+                        "ru" => __('Cannot change the password', 'payme'),
+                        "uz" => __('Cannot change the password', 'payme'),
+                        "en" => __('Cannot change the password', 'payme')
                     ],
                     "data" => "password"
                 ],
@@ -520,9 +520,9 @@ FORM;
                 "error" => [
                     "code" => -32700,
                     "message" => [
-                        "ru" => __('Could not parse JSON_ru', 'payme'),
-                        "uz" => __('Could not parse JSON_uz', 'payme'),
-                        "en" => __('Could not parse JSON_en', 'payme')
+                        "ru" => __('Could not parse JSON', 'payme'),
+                        "uz" => __('Could not parse JSON', 'payme'),
+                        "en" => __('Could not parse JSON', 'payme')
                     ],
                     "data" => null
                 ],
@@ -539,9 +539,9 @@ FORM;
                 "error" => [
                     "code" => -31099,
                     "message" => [
-                        "ru" => __('Order number cannot be found_ru', 'payme'),
-                        "uz" => __('Order number cannot be found_uz', 'payme'),
-                        "en" => __('Order number cannot be found_en', 'payme')
+                        "ru" => __('Order number cannot be found', 'payme'),
+                        "uz" => __('Order number cannot be found', 'payme'),
+                        "en" => __('Order number cannot be found', 'payme')
                     ],
                     "data" => "order"
                 ],
@@ -558,9 +558,9 @@ FORM;
                 "error" => [
                     "code" => -31099,
                     "message" => [
-                        "ru" => __('Other transaction for this order is in progress_ru', 'payme'),
-                        "uz" => __('Other transaction for this order is in progress_uz', 'payme'),
-                        "en" => __('Other transaction for this order is in progress_en', 'payme')
+                        "ru" => __('Other transaction for this order is in progress', 'payme'),
+                        "uz" => __('Other transaction for this order is in progress', 'payme'),
+                        "en" => __('Other transaction for this order is in progress', 'payme')
                     ],
                     "data" => "order"
                 ],
@@ -577,9 +577,9 @@ FORM;
                 "error" => [
                     "code" => -31001,
                     "message" => [
-                        "ru" => __('Order amount is incorrect_ru', 'payme'),
-                        "uz" => __('Order amount is incorrect_uz', 'payme'),
-                        "en" => __('Order amount is incorrect_en', 'payme')
+                        "ru" => __('Order amount is incorrect', 'payme'),
+                        "uz" => __('Order amount is incorrect', 'payme'),
+                        "en" => __('Order amount is incorrect', 'payme')
                     ],
                     "data" => "amount"
                 ],
@@ -596,9 +596,9 @@ FORM;
                 "error" => [
                     "code" => -31008,
                     "message" => [
-                        "ru" => __('Unknown error_ru', 'payme'),
-                        "uz" => __('Unknown error_uz', 'payme'),
-                        "en" => __('Unknown error_en', 'payme')
+                        "ru" => __('Unknown error', 'payme'),
+                        "uz" => __('Unknown error', 'payme'),
+                        "en" => __('Unknown error', 'payme')
                     ],
                     "data" => null
                 ],
@@ -615,9 +615,9 @@ FORM;
                 "error" => [
                     "code" => -32601,
                     "message" => [
-                        "ru" => __('Unknown method_ru', 'payme'),
-                        "uz" => __('Unknown method_uz', 'payme'),
-                        "en" => __('Unknown method_en', 'payme')
+                        "ru" => __('Unknown method', 'payme'),
+                        "uz" => __('Unknown method', 'payme'),
+                        "en" => __('Unknown method', 'payme')
                     ],
                     "data" => $payload['method']
                 ],
@@ -634,9 +634,9 @@ FORM;
                 "error" => [
                     "code" => -31003,
                     "message" => [
-                        "ru" => __('Transaction number is wrong_ru', 'payme'),
-                        "uz" => __('Transaction number is wrong_uz', 'payme'),
-                        "en" => __('Transaction number is wrong_en', 'payme')
+                        "ru" => __('Transaction number is wrong', 'payme'),
+                        "uz" => __('Transaction number is wrong', 'payme'),
+                        "en" => __('Transaction number is wrong', 'payme')
                     ],
                     "data" => "id"
                 ],
@@ -653,9 +653,9 @@ FORM;
                 "error" => [
                     "code" => -31008,
                     "message" => [
-                        "ru" => __('Transaction was cancelled or refunded_ru', 'payme'),
-                        "uz" => __('Transaction was cancelled or refunded_uz', 'payme'),
-                        "en" => __('Transaction was cancelled or refunded_en', 'payme')
+                        "ru" => __('Transaction was cancelled or refunded', 'payme'),
+                        "uz" => __('Transaction was cancelled or refunded', 'payme'),
+                        "en" => __('Transaction was cancelled or refunded', 'payme')
                     ],
                     "data" => "order"
                 ],
@@ -672,9 +672,9 @@ FORM;
                 "error" => [
                     "code" => -31007,
                     "message" => [
-                        "ru" => __('It is impossible to cancel. The order is completed_ru', 'payme'),
-                        "uz" => __('It is impossible to cancel. The order is completed_uz', 'payme'),
-                        "en" => __('It is impossible to cancel. The order is completed_en', 'payme')
+                        "ru" => __('It is impossible to cancel. The order is completed', 'payme'),
+                        "uz" => __('It is impossible to cancel. The order is completed', 'payme'),
+                        "en" => __('It is impossible to cancel. The order is completed', 'payme')
                     ],
                     "data" => "order"
                 ],
@@ -692,9 +692,9 @@ FORM;
                     [
                         "code" => -32504,
                         "message" => [
-                            "ru" => __('Error during authorization_ru', 'payme'),
-                            "uz" => __('Error during authorization_uz', 'payme'),
-                            "en" => __('Error during authorization_en', 'payme')
+                            "ru" => __('Error during authorization', 'payme'),
+                            "uz" => __('Error during authorization', 'payme'),
+                            "en" => __('Error during authorization', 'payme')
                         ],
                         "data" => null
                     ],

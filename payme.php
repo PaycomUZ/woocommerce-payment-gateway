@@ -193,6 +193,10 @@ FORM;
          */
         private function respond($response)
         {
+            if (!headers_sent()) {
+                header('Content-Type: application/json; charset=UTF-8');
+            }
+
             echo json_encode($response);
             die();
         }

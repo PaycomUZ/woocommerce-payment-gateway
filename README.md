@@ -10,9 +10,7 @@
 
 #### GitHub
 
-Скачайте плагин как ZIP архив
-
-![Download ZIP](images/download-zip.png)
+Скачайте плагин как [ZIP архив](https://github.com/PaycomUZ/woocommerce-payment-gateway/releases/latest)
 
 Загрузите плагин в WordPress
 

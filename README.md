@@ -6,7 +6,7 @@
 
 - [WordPress 4.x](https://wordpress.org/)
 - [WooCommerce 3.x](https://woocommerce.com/)
-- Web Cash Desk from [Paycom](http://paycom.uz/)
+- Регистрация в кабинете поставщика [Paycom](http://paycom.uz/)
 
 #### GitHub
 

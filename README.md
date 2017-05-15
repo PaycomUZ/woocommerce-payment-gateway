@@ -1,8 +1,8 @@
 # WooCommerce plugin for Payme
 
-## Installation
+## Установка
 
-#### Prerequisites
+#### Требования
 
 - [WordPress 4.x](https://wordpress.org/)
 - [WooCommerce 3.x](https://woocommerce.com/)
@@ -10,36 +10,34 @@
 
 #### GitHub
 
-Download plugin source code as ZIP Archive
+Скачайте плагин как ZIP архив
 
 ![Download ZIP](images/download-zip.png)
 
-Upload plugin manually
+Загрузите плагин в WordPress
 
 ![Upload plugin](images/upload-plugin.png)
 
-...and install it
+...и установите его
 
 ![Install plugin from ZIP](images/install-from-zip.png)
 
-Activate it after installation
+Активируйте плагин после установки
 
 ![Activate plugin](images/activate-plugin.png)
 
-Go to the WooCommerce `Settings` page
+Откройте страницу настроек WooCommerce
 
 ![WooCommerce Settings page](images/woocommerce-settings.png)
 
-Open `Checkout` tab
+Откройте вкладку `Checkout`
 
 ![Checkout Tab](images/checkout-tab.png)
 
-Change current tab to `Payme` and fill out settings.
+Откройте вкладку `Payme` и внесите необходимые данные.
 
 ![Payme Settings](images/payme-settings.png)
 
-There you can get your `Endpoint URL` and set it in the Web Cash Desk settings at Paycom.
+Скопируйте ваш `Endpoint URL` и внесите его в кабинете поставщика Paycom.
 
 ![Set Endpoint URL](images/endpoint-url.png)
-
-To be continued...

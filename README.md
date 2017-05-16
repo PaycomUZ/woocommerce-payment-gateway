@@ -4,6 +4,7 @@
 
 #### Требования
 
+- PHP >= 5.4
 - [WordPress 4.x](https://wordpress.org/)
 - [WooCommerce 3.x](https://woocommerce.com/)
 - Регистрация в кабинете поставщика [Paycom](http://paycom.uz/)

@@ -25,6 +25,16 @@
 
 ![Activate plugin](images/activate-plugin.png)
 
+#### Что бы Apache не игнорировал заголовок `Authorization` надо загрузить файл `.htaccess` со следующем содержанием:
+
+```
+RewriteEngine On
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+```
+
+в корневую директорию сайта
+
 Откройте страницу настроек WooCommerce
 
 ![WooCommerce Settings page](images/woocommerce-settings.png)

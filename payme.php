@@ -13,6 +13,23 @@ if (!defined('ABSPATH')) exit;
 
 add_action('plugins_loaded', 'woocommerce_payme', 0);
 
+//Fix support php-fpm
+if (!function_exists('getallheaders'))
+{
+    function getallheaders()
+        {
+            $headers = '';
+            foreach ($_SERVER as $name => $value)
+            {
+                if (substr($name, 0, 5) == 'HTTP_')
+                {
+                    $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                }
+            }
+            return $headers;
+        }
+}
+
 function woocommerce_payme()
 {
     load_plugin_textdomain('payme', false, dirname(plugin_basename(__FILE__)) . '/lang/');
@@ -165,8 +182,8 @@ FORM;
 
             if (json_last_error() !== JSON_ERROR_NONE) { // handle Parse error
                 $this->respond($this->error_invalid_json());
-            }
-
+            } 
+			
             // Authorize client
             $headers = getallheaders();
             $encoded_credentials = base64_encode("Paycom:{$this->merchant_key}");

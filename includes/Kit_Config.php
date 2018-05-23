@@ -1,9 +1,8 @@
-<?
+<?php
 /*
  Plugin Name: Payme
  Plugin URI:  http://paycom.uz
  Description: Payme Checkout Plugin for WooCommerce
- Version: 2.0.0
  Author: Игамбердиев Бахтиёр Хабибулаевич admin@xxi.uz
  license: http://skill.uz/license-agreement.txt
  Text Domain: Kit_Config
@@ -39,7 +38,8 @@
             $this->checkout_url = $this->get_option('checkout_url');
             $this->checkout_url_test = $this->get_option('checkout_url_test');
             $this->merchant_key_test = $this->get_option('merchant_key_test');
-            $this->StatusTest = $this->get_option('enabled');
+            $this->Enabled = $this->get_option('enabled');
+            $this->StatusTest = $this->get_option('enabled_test');
             $this->callback_timeout = $this->get_option('callback_pay');
             $this->Redirect = $this->get_option('redirect');
             $this->view_batten = $this->get_option('view_batten');
@@ -96,7 +96,7 @@
             	$_REQUEST['groups']['payme']['fields']['merchant_key']['value']		= $_REQUEST['woocommerce_payme_merchant_key'];
             	$_REQUEST['groups']['payme']['fields']['checkout_url']['value']		= $_REQUEST['woocommerce_payme_checkout_url'];
             	$_REQUEST['groups']['payme']['fields']['endpoint_url']['value']		= site_url('/?wc-api=Kit_Callback');
-            	$_REQUEST['groups']['payme']['fields']['status_test']['value']		= $_REQUEST['woocommerce_payme_enabled']==1?'Y':'N';
+            	$_REQUEST['groups']['payme']['fields']['status_test']['value']		= $_REQUEST['woocommerce_payme_enabled_test']==1?'Y':'N';
             	$_REQUEST['groups']['payme']['fields']['status_tovar']['value']		= $_REQUEST['woocommerce_payme_status_tovar']==1?'Y':'N';
             	$_REQUEST['groups']['payme']['fields']['callback_pay']['value']		= $_REQUEST['woocommerce_payme_callback_pay'];
             	$_REQUEST['groups']['payme']['fields']['redirect']['value']			= $_REQUEST['woocommerce_payme_redirect'];
@@ -108,7 +108,13 @@
         {
 			//exit(TABLE_PREFIX);
             $this->form_fields = [
-	                'enabled' => [
+            		'enabled' => [
+            				'title' => 'Активировать',//__('Enable/Disable', 'payme'),
+            				'type' => 'checkbox',
+            				'label' => __('Enabled', 'payme'),
+            				'default' => 'yes'
+            		],            		
+            		'enabled_test' => [
 	                    'title' => 'Включить режим тестирования',//__('Enable/Disable', 'payme'),
 	                    'type' => 'checkbox',
 	                    'label' => __('Enabled', 'payme'),
@@ -188,7 +194,10 @@
             $order = new WC_Order($order_id);
 
             // convert an amount to the coins (Payme accepts only coins)
-            $sum = $order->order_total * 100;
+            if(isset($order->order_total))
+            	$sum = $order->order_total * 100;
+            else
+            	$sum = $order->get_total() * 100;
 
             // format the amount
             $sum = number_format($sum, 0, '.', '');
@@ -204,15 +213,15 @@
             	$label_pay = $this->view_batten;
             $label_cancel = __('Cancel payment and return back', 'payme');
             
-            $this->StatusTest = 'Y';//$this->getConfigData('status_test');
+            //$this->StatusTest = 'Y';//$this->getConfigData('status_test');
             if($this->StatusTest == 'yes' or $this->StatusTest == 1)
             {
-            	$merchantUrl = $this->checkout_url;
+            	$merchantUrl = $this->checkout_url_test;
             	$this->StatusTest = 'Y';
             }
             else
             {
-            	$merchantUrl = $this->checkout_url_test;
+            	$merchantUrl = $this->checkout_url;
             	$this->StatusTest = 'N';
             }
             
@@ -238,12 +247,34 @@
             
             $return = include __DIR__.'/UniversalKernel/IndexInsertOrder.php';
            
-            $Url = "{$merchantUrl}/".base64_encode("m={$this->merchant_id};ac.order_id={$return['id']};a={$sum};l=ru;c={$this->Redirect}&order_id={$return['id']};ct={$callback_timeout}");
+            //$Url = "{$merchantUrl}/".base64_encode("m={$this->merchant_id};ac.order_id={$order_id};a={$sum};l=ru;c={$this->Redirect}&order_id={$order_id};ct={$callback_timeout}");
+            $Url = $merchantUrl;
+            $fields = array(
+            		'merchant'       	  	=> $this->merchant_id,  				// Идентификатор WEB Кассы
+            		'amount'            	=> $sum,								// Сумма платежа в тиинах
+            		'account[order_id]' 	=> $order_id,							// Поля Объекта Account
+            		// НЕ ОБЯЗАТЕЛЬНЫЕ ПОЛЯ
+            		'lang'					=> 'ru',								//Язык. Доступные значения: ru|uz|en Другие значения игнорируются Значение по умолчанию ru
+            		'currency'				=> 860, 								// Валюта. Доступные значения: 643|840|860|978 Другие значения игнорируются Значение по умолчанию 860 Коды валют в ISO формате
+            		'callback'				=> $this->Redirect, 					// URL возврата после оплаты или отмены платежа. :transaction - id транзакции или "null" если транзакцию не удалось создадь :account.{field} - поля объекта Account
+            		'callback_timeout'		=> $callback_timeout 					// Таймаут после успешного платежа в милисекундах.
+            );
+            
+            if($pmconfigs['payment_kit_payme_status_tovar'])
+            	$fields['detail'] = base64_encode(json_encode($detail));	// Объект детализации платежа
+            
+            $form = '<form name="payme" id="paymentform" action="'.$host.'" method="POST">';
+            foreach ($fields as $key=>$value){
+            	$form .=  '<input type="hidden" name="'.$key.'" value="'.$value.'">';
+            }
+            
+           
            // print_r($return); exit($Url);
             $form = 
 <<<FORM
 	<form action="{$Url}" method="POST" id="payme_form">
-		<a href="{$Url}" class="button alt" id="submit_payme_form">$label_pay</a>
+		{$form}
+		<button class="button alt" id="submit_payme_form">$label_pay</button>
 		<a class="button cancel" href="{$order->get_cancel_order_url()}">$label_cancel</a>
 	</form>
 FORM;

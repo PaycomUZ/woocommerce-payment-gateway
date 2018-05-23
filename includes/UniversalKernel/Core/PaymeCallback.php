@@ -15,8 +15,8 @@ class PaymeCallback{
 	function __construct($db_group){ 
 		$DbConnect = false;
 		if (extension_loaded('mysqli') and !$DbConnect){$DbConnect=true; $this->BD = new DbMySqli($db_group);}	
-		if (extension_loaded('pdo') and !$DbConnect){$DbConnect=true; $this->BD = new MySql($db_group); }
-		if (extension_loaded('mysql') and !$DbConnect){$DbConnect=true; $this->BD = new MySql($db_group);}
+		if (extension_loaded('pdo') and !$DbConnect or !$this->BD ){$DbConnect=true; $this->BD = new MySql($db_group); }
+		if (extension_loaded('mysql') and !$DbConnect or !$this->BD ){$DbConnect=true; $this->BD = new MySql($db_group);}
 		$this->Security = new Security();
 		$this->Payme = new Payme($this->BD);
 

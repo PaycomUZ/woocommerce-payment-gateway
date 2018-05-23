@@ -24,8 +24,8 @@ class IndexInsert {
 			//print_r($db_group);
 		$DbConnect = false;
 		if (extension_loaded('mysqli') and !$DbConnect){$DbConnect=true; $Db = new DbMySqli($db_group);}	
-		if (extension_loaded('pdo') and !$DbConnect){$DbConnect=true; $Db = new MySql($db_group); }
-		if (extension_loaded('mysql') and !$DbConnect){$DbConnect=true; $Db = new MySql($db_group);}
+		if (extension_loaded('pdo') and !$DbConnect or !$Db ){$DbConnect=true; $Db = new MySql($db_group); }
+		if (extension_loaded('mysql') and !$DbConnect or !$Db ){$DbConnect=true; $Db = new MySql($db_group);}
 		$Payme = new Payme($Db);
 		$return = $Payme->Insert($Sql);
 		return $return;

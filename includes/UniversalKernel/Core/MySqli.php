@@ -1,5 +1,5 @@
 <?php 
-
+ini_set('error_reporting', E_CORE_WARNING);
 /**
  * @category    KiT
  * @package     KiT_Payme
@@ -17,9 +17,10 @@ class DbMySqli
 	public function __construct($db_group) {
 //		echo '<pre>';print_r($db_group);exit('</pre>');
 	    $this->LibError = new XXI_Error();
-
+	    $r = true;
 		try {
-			DbMySqli::connect($db_group);
+			$r = DbMySqli::connect($db_group);
+			return $r;
 		} catch ( PDOException $e ) {
 			die ( 'Подключение не удалось:');
 		}
@@ -27,13 +28,15 @@ class DbMySqli
 	
 	public static function connect($db_group)
 	{// Синглтончик-с в целях экономии
-	if(empty(self::$link))
-	{
-		self::$link = @mysqli_connect($db_group['DB_HOST'], $db_group['DB_USER'], $db_group['DB_PASS'], $db_group['DB_NAME'])
-		or die('No connect');
-	
-		mysqli_set_charset(self::$link, 'utf8');
-	}
+		if(empty(self::$link))
+		{
+			$rezult = true;
+			self::$link = @mysqli_connect($db_group['DB_HOST'], $db_group['DB_USER'], $db_group['DB_PASS'], $db_group['DB_NAME'])
+			or $rezult = false;
+			if(!$rezult)
+				return $rezult;
+			mysqli_set_charset(self::$link, 'utf8');
+		}
 	}	
 	public function query($query = false) {
 		if (! $query) {

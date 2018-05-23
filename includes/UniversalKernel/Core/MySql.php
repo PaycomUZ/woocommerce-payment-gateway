@@ -1,5 +1,5 @@
 <?php 
-
+ini_set('error_reporting', E_CORE_WARNING);
 /**
  * @category    KiT
  * @package     KiT_Payme
@@ -21,10 +21,11 @@ class MySql extends PDO
 			parent::__construct ( 'mysql:host=' . $db_group['DB_HOST'] . ';port=' . $db_group['DB_PORT'] . ';dbname=' . $db_group['DB_NAME'], $db_group['DB_USER'], $db_group['DB_PASS'] );
 			$this->exec ( "set names " . $db_group['CHARSET'] );
 			$this->setAttribute ( parent::ATTR_DEFAULT_FETCH_MODE, parent::FETCH_OBJ );
+			return true;
 		} catch ( PDOException $e ) {
-			
-			die ( 'Подключение не удалось:');
-			$this->LibError->TryCatch($e->getMessage());
+			return false;
+			//die ( 'Подключение не удалось:');
+			//$this->LibError->TryCatch($e->getMessage());
 		}
 	}
 	public function LogMysql($LogFile, $str){

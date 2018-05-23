@@ -1,15 +1,11 @@
 <?php
-/**
- * @package KiT Payme
- * @version 2.0.12-bat
- */
 /*
 Plugin Name: KiT Payme
 Plugin URI: http://paycom.uz
 Description: <a href="https://business.payme.uz/">Payme</a> Checkout Plugin for WooCommerce. Услуги лицензированы. Лицензия на эксплуатацию и оказание услуг сетей передачи данных АА№0005816, выдана Министерством по развитию информационных технологий и коммуникации Республики Узбекистан 08 апреля 2016 года.
-Author: Игамбердиев Бахтиёр Хабибулаевич admin@xxi.uz
-Version: 2.0.12-bat
-Author URI: http://skill.uz
+Author: Игамбердиев Бахтиёр Хабибулаевич admin@xxi.uz https://t.me/SkillUz
+Version: 2.0.25-beta
+Author URI: https://t.me/Skill_Uz
 */
 
 // Prevent direct access
@@ -17,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 
 
 define('TABLE_PREFIX', $table_prefix);
-define('WP_HTTP_BLOCK_EXTERNAL', true);
+define('WP_HTTP_BLOCK_EXTERNAL', false);
 
 add_action('plugins_loaded', 'Kit_Woocommerce_Payme', 0);
 
@@ -47,7 +43,8 @@ function Kit_Woocommerce_Payme()
         return;
 
     // Do not re-declare class
-    if($_GET['wc-api'] == 'Kit_Callback')
+    $wc_api = isset($_GET['wc-api'])?$_GET['wc-api']:null;
+    if($wc_api == 'Kit_Callback')
     {
     	include_once __DIR__.'/includes/Kit_Callback.php';
     	if (!class_exists('Kit_Callback'))
@@ -58,7 +55,7 @@ function Kit_Woocommerce_Payme()
     		return $methods;
     	}
     }
-    else if($_GET['wc-api'] == 'OrderReturn'){
+    else if($wc_api == 'OrderReturn'){
     	include_once __DIR__.'/includes/Kit_Callback.php';
     	if (!class_exists('Kit_Callback'))
     		return;

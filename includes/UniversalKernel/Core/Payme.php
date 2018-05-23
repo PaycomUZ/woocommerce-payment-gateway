@@ -60,7 +60,7 @@ class Payme
 		$this->BD->sql = "SELECT t.transaction_id, 
 								 t.amount
 						    FROM {TABLE_PREFIX}payme_transactions t
-						   WHERE t.transaction_id = :p_order_id
+						   WHERE t.cms_order_id = :p_order_id
 						     AND t.state IN ('0', '1')";
 		
 		if(isset($Get['params']['account']['order_id']))
@@ -83,7 +83,6 @@ class Payme
 			}
 			else
 				$Param = $this->Error($Get['id'], '-31001', __METHOD__.':amount');
-			
 			break;
 		}
 		
@@ -101,7 +100,7 @@ class Payme
 								 t.paycom_transaction_id,
 								 t.state
 						    FROM {TABLE_PREFIX}payme_transactions t
-						   WHERE t.transaction_id = :p_order_id
+						   WHERE t.cms_order_id = :p_order_id
 						    /* AND t.state IN ('1')*/";
 		
 		$this->BD->param(':p_order_id', $Get['params']['account']['order_id']);
@@ -131,7 +130,7 @@ class Payme
 						
 					//	$this->DopSelect('CreateTransaction', $Sql, $o);
 					}
-					$Param = $this->Result($Get['id'], $this->transaction_id);
+					$Param = $this->Result($Get['id'], $o->cms_order_id);
 				
 				}
 			}
@@ -185,7 +184,7 @@ class Payme
 				
 				}
 			//	print_r($sql);exit();
-				$Param = $this->Result($Get['id'], $this->transaction_id);
+				$Param = $this->Result($Get['id'], $o->cms_order_id);
 
 			}
 			else
@@ -212,7 +211,7 @@ class Payme
 		while ( $o = $ret->fetch () ) {
 			$this->transaction_id 		= $o->transaction_id;
 			$Param = array();
-			$Param = $this->Result($Get['id'], $this->transaction_id);
+			$Param = $this->Result($Get['id'], $o->cms_order_id);
 		}
 		
 		return $Param;
@@ -253,7 +252,7 @@ class Payme
 				$this->DopSelect('PerformTransaction', $Sql, $o);
 			}
 			
-			$Param = $this->Result($Get['id'], $this->transaction_id);
+			$Param = $this->Result($Get['id'], $o->cms_order_id);
 		}
 		
 		return $Param;
@@ -316,9 +315,9 @@ class Payme
 							     t.order_id,
 							     t.cms_order_id
 						    FROM {TABLE_PREFIX}payme_transactions t
-						   WHERE t.transaction_id = :p_transaction_id";
+						   WHERE t.cms_order_id = :p_cms_order_id";
 		
-		$this->BD->param(':p_transaction_id', $Transaction_id);
+		$this->BD->param(':p_cms_order_id', $Transaction_id);
 		$ret = $this->BD->query ();
 		$Param = $this->Error($Id, '-31003', __METHOD__);
 		
@@ -417,7 +416,7 @@ class Payme
 		while ( $o = $ret->fetch () ) {
 			$Param = array();
 			$Param = array(
-					'id'			=> $o->transaction_id,
+					'id'			=> $o->cms_order_id,
 					'Redirect'		=> $o->redirect,
 					'paycom_time'	=> $o->paycom_time,
 					/*"transaction"	=> $o->order_id, //Номер или идентификатор транзакции в биллинге мерчанта. Формат строки определяется мерчантом.
@@ -508,7 +507,10 @@ class Payme
 		$return = $this->Result('', $order_id);
 		$GetHtml = file_get_contents(__DIR__.'/View/OrderReturn.html');
 		//print_r($return); exit();
-		$Str = $this->TransactionState($return['result']['state']);
+		if(isset($return['result']['state']))
+			$Str = $this->TransactionState($return['result']['state']);
+		else
+			$Str = $return['error']['message']['ru'];
 		$GetHtml = str_replace('{OREDR_RETURN}', $Str, $GetHtml);
 	
 		return $GetHtml;

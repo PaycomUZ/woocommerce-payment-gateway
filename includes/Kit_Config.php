@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  Plugin Name: Payme
  Plugin URI:  http://paycom.uz
@@ -14,7 +14,7 @@
         protected $merchant_id;
         protected $merchant_key;
         protected $merchant_key_test;
-        protected $checkout_url;        
+        protected $checkout_url;
         protected $checkout_url_test;
 		protected $StatusTest;
 		protected $callback_timeout;
@@ -43,12 +43,12 @@
             $this->callback_timeout = $this->get_option('callback_pay');
             $this->Redirect = $this->get_option('redirect');
             $this->view_batten = $this->get_option('view_batten');
-            
+
             add_action('woocommerce_receipt_' . $this->id, [$this, 'receipt_page']);
             add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
             add_action('woocommerce_api_wc_' . $this->id, [$this, 'callback']);
         }
-		
+
         public function admin_options()
         {
 			$this->DefConfig();
@@ -71,14 +71,14 @@
 					</p>
 				</div>
             </div>
-			
+
             <table class="form-table">
                 <?php $this->generate_settings_html(); ?>
             </table>
             <?php
         }
 		private function DefConfig(){
-			
+
             $db_group = array(
             		'DB_HOST'=>DB_HOST,
             		'DB_PORT'=>'3306',
@@ -88,7 +88,7 @@
             		'CHARSET'=>DB_CHARSET,
             		'CHARSETCOLAT'=>DB_CHARSET
             );
-            
+
             if(!empty($_REQUEST['save']))
             {
             	$_REQUEST['groups']['payme']['fields']['merchant_id']['value'] 		= $_REQUEST['woocommerce_payme_merchant_id'];
@@ -100,7 +100,7 @@
             	$_REQUEST['groups']['payme']['fields']['status_tovar']['value']		= $_REQUEST['woocommerce_payme_status_tovar']==1?'Y':'N';
             	$_REQUEST['groups']['payme']['fields']['callback_pay']['value']		= $_REQUEST['woocommerce_payme_callback_pay'];
             	$_REQUEST['groups']['payme']['fields']['redirect']['value']			= $_REQUEST['woocommerce_payme_redirect'];
-            	
+
             	include __DIR__.'/UniversalKernel/IndexConfigCreate.php';
             }
 		}
@@ -150,14 +150,14 @@
 	           				'description' => '',
 	           				'default' => 'https://test.paycom.uz'
 	           		],
-            		
+
             		'callback_checkout_url' => [
             				'title' => 'Url для Payme:',
             				'type' => 'text',
             				'label' => 'Данные URL необходим для размещения ссылки на Ваш магазин в прилжении Payme в разделе Оплаты',
             				'default' => site_url('/?payme=pay')
             		],
-            		            		
+
 	            	'callback_pay' => [
 	            			'title' => 'Вернуться после оплаты через:',
 	            			'type' => 'select',
@@ -172,7 +172,7 @@
 	            				'label' => 'Добавить в чек данные о товарах',
 	            				'default' => 'yes'
 	            		],
-	            	
+
 	            	'view_batten' => [
 	            			'title' => 'Текст на кнопке:',
 	            			'type' => 'text',
@@ -197,13 +197,13 @@
 
             $lang_codes = ['ru_RU' => 'ru', 'en_US' => 'en', 'uz_UZ' => 'uz'];
             $lang = isset($lang_codes[get_locale()]) ? $lang_codes[get_locale()] : 'en';
-			
+
             if(empty($this->view_batten))
             	$label_pay = __('Pay', 'payme');
-            else 
+            else
             	$label_pay = $this->view_batten;
             $label_cancel = __('Cancel payment and return back', 'payme');
-            
+
             $this->StatusTest = 'Y';//$this->getConfigData('status_test');
             if($this->StatusTest == 'yes' or $this->StatusTest == 1)
             {
@@ -215,7 +215,7 @@
             	$merchantUrl = $this->checkout_url_test;
             	$this->StatusTest = 'N';
             }
-            
+
             $callback_timeout 	= $this->callback_timeout;//$this->getConfigData('callback_pay');
             $Get = array(
             		'Amount'=>$sum,
@@ -224,7 +224,7 @@
             		'IsFlagTest'=>$this->StatusTest,
             		'Lang'=>$lang
             );
-            
+
             $port = '3306';
             $db_group = array(
             		'DB_HOST'=>DB_HOST,
@@ -235,12 +235,12 @@
             		'CHARSET'=>DB_CHARSET,
             		'CHARSETCOLAT'=>DB_CHARSET
             );
-            
+
             $return = include __DIR__.'/UniversalKernel/IndexInsertOrder.php';
-           
+
             $Url = "{$merchantUrl}/".base64_encode("m={$this->merchant_id};ac.order_id={$return['id']};a={$sum};l=ru;c={$this->Redirect}&order_id={$return['id']};ct={$callback_timeout}");
            // print_r($return); exit($Url);
-            $form = 
+            $form =
 <<<FORM
 	<form action="{$Url}" method="POST" id="payme_form">
 		<a href="{$Url}" class="button alt" id="submit_payme_form">$label_pay</a>

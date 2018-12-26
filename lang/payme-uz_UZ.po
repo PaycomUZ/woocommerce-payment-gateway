@@ -23,8 +23,8 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: payme.php:39
-msgid "Платежная система Payme"
-msgstr "Платежная система Payme"
+msgid "Payment system Payme"
+msgstr "Payme to`lov tizimi"
 
 #. Plugin Name of the plugin/theme
 #: payme.php:59
@@ -32,12 +32,8 @@ msgid "Payme"
 msgstr "Payme"
 
 #: payme.php:61
-msgid "Настройте параметры оплаты"
+msgid "Configure checkout settings"
 msgstr "To`lov parametrlarini sozlang"
-
-#: payme.php:61
-msgid "Endpoint Url"
-msgstr "Endpoint Url"
 
 #: payme.php:64
 msgid "Your Web Cash Endpoint URL to handle requests is:"

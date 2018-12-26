@@ -23,7 +23,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: payme.php:39
-msgid "Платежная система Payme"
+msgid "Payment system Payme"
 msgstr "Платежная система Payme"
 
 #. Plugin Name of the plugin/theme
@@ -32,20 +32,16 @@ msgid "Payme"
 msgstr "Payme"
 
 #: payme.php:61
-msgid "Настройте параметры оплаты"
+msgid "Configure checkout settings"
 msgstr "Настройте параметры оплаты"
-
-#: payme.php:61
-msgid "Endpoint Url"
-msgstr "Endpoint Url"
 
 #: payme.php:64
 msgid "Your Web Cash Endpoint URL to handle requests is:"
 msgstr "Ваш URL для обработки запросов:"
 
-#: payme.php:86
+#: payme.php:78
 msgid "Enable/Disable"
-msgstr "Включить режим тестирования"
+msgstr "Включен/Отключен"
 
 #: payme.php:80
 msgid "Enabled"
@@ -60,7 +56,7 @@ msgid "Obtain and set Merchant ID from the Paycom Merchant Cabinet"
 msgstr "Используйте ID поставщика из кабинета мерчанта"
 
 #: payme.php:90
-msgid "Ключ - пароль кассы"
+msgid "KEY"
 msgstr "Ключ - пароль кассы"
 
 #: payme.php:92
@@ -69,7 +65,7 @@ msgstr "Используйте пароль от кабинета мерчант
 
 #: payme.php:96
 msgid "Checkout URL"
-msgstr "Введите URL-адрес шлюза"
+msgstr "Checkout URL"
 
 #: payme.php:98
 msgid "Set Paycom Checkout URL to submit a payment"

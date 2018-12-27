@@ -412,10 +412,10 @@ FORM;
             $response = [
                 "id" => $payload['id'],
                 "result" => [
-                    "create_time" => $this->get_create_time($order),
-                    "perform_time" => 0,
-                    "cancel_time" => 0,
-                    "transaction" => "000" . $order->get_id(),
+                    "create_time"  => $this->get_create_time($order),
+                    "perform_time" => (is_null($this->get_perform_time($order)) ? 0: $this->get_perform_time($order) ) ,
+                    "cancel_time"  => (is_null($this->get_cancel_time($order))  ? 0: $this->get_cancel_time($order) ) ,
+                    "transaction"  => "000" . $order->get_id(),
                     "state" => null,
                     "reason" => null
                 ],

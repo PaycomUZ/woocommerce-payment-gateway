@@ -338,7 +338,7 @@ FORM;
                     $response = [
                         "id" => $payload['id'],
                         "result" => [
-                            "create_time" => $create_time,
+                            "create_time" => /*$create_time*/ $this->get_create_time($order),
                             "transaction" => "000" . $order->get_id(),
                             "state" => 1
                         ]
@@ -347,7 +347,7 @@ FORM;
                     $response = [
                         "id" => $payload['id'],
                         "result" => [
-                            "create_time" => $create_time,
+                            "create_time" => /*$create_time*/ $this->get_create_time($order),
                             "transaction" => "000" . $order->get_id(),
                             "state" => 1
                         ]

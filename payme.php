@@ -107,7 +107,7 @@ function woocommerce_payme()
             $order = new WC_Order($order_id);
 
             // convert an amount to the coins (Payme accepts only coins)
-            $sum = $order->order_total * 100;
+            $sum = $order->get_total() * 100;
 
             // format the amount
             $sum = number_format($sum, 0, '.', '');
@@ -142,11 +142,12 @@ FORM;
             return [
                 'result' => 'success',
                 'redirect' => add_query_arg(
-                    'order',
+                    'order_pay',
                     $order->get_id(),
-                    add_query_arg('key', $order->order_key, get_permalink(woocommerce_get_page_id('pay')))
+                    add_query_arg('key', $order->get_order_key(), $order->get_checkout_payment_url(true))
                 )
             ];
+
         }
 
         public function receipt_page($order_id)
@@ -294,11 +295,19 @@ FORM;
         {
             return (string)get_post_meta($order->get_id(), '_payme_transaction_id', true);
         }
+		
+		private function get_cencel_reason(WC_Order $order)
+        {
+           $b_v=(int)get_post_meta($order->get_id(), '_cancel_reason', true);
+		   
+		   if ($b_v)  return $b_v;
+		   else return null;
+        }
 
         private function CheckPerformTransaction($payload)
         {
             $order = $this->get_order($payload);
-            $amount = $this->amount_to_coin($order->order_total);
+            $amount = $this->amount_to_coin($order->get_total());
 
             if ($amount != $payload['params']['amount']) {
                 $response = $this->error_amount($payload);
@@ -318,7 +327,7 @@ FORM;
         private function CreateTransaction($payload)
         {
             $order = $this->get_order($payload);
-            $amount = $this->amount_to_coin($order->order_total);
+            $amount = $this->amount_to_coin($order->get_total());
 
             if ($amount != $payload['params']['amount']) {
                 $response = $this->error_amount($payload);
@@ -327,9 +336,9 @@ FORM;
                 $transaction_id = $payload['params']['id'];
                 $saved_transaction_id = $this->get_transaction_id($order);
 
-                if ($order->status == "pending") { // handle new transaction
+                if ($order->get_status() == "pending") { // handle new transaction
                     // Save time and transaction id
-                    add_post_meta($order->get_id(), '_payme_create_time', $create_time, true);
+                    add_post_meta($order->get_id(), '_payme_create_time',    $create_time,    true);
                     add_post_meta($order->get_id(), '_payme_transaction_id', $transaction_id, true);
 
                     // Change order's status to Processing
@@ -343,7 +352,7 @@ FORM;
                             "state" => 1
                         ]
                     ];
-                } elseif ($order->status == "processing" && $transaction_id == $saved_transaction_id) { // handle existing transaction
+                } elseif ($order->get_status() == "processing" && $transaction_id == $saved_transaction_id) { // handle existing transaction
                     $response = [
                         "id" => $payload['id'],
                         "result" => [
@@ -352,7 +361,7 @@ FORM;
                             "state" => 1
                         ]
                     ];
-                } elseif ($order->status == "processing" && $transaction_id !== $saved_transaction_id) { // handle new transaction with the same order
+                } elseif ($order->get_status() == "processing" && $transaction_id !== $saved_transaction_id) { // handle new transaction with the same order
                     $response = $this->error_has_another_transaction($payload);
                 } else {
                     $response = $this->error_unknown($payload);
@@ -367,7 +376,7 @@ FORM;
             $perform_time = $this->current_timestamp();
             $order = $this->get_order_by_transaction($payload);
 
-            if ($order->status == "processing") { // handle new Perform request
+            if ($order->get_status() == "processing") { // handle new Perform request
                 // Save perform time
                 add_post_meta($order->get_id(), '_payme_perform_time', $perform_time, true);
 
@@ -383,7 +392,8 @@ FORM;
                 // Mark order as completed
                 $order->update_status('completed');
                 $order->payment_complete($payload['params']['id']);
-            } elseif ($order->status == "completed") { // handle existing Perform request
+				
+            } elseif ($order->get_status() == "completed") { // handle existing Perform request
                 $response = [
                     "id" => $payload['id'],
                     "result" => [
@@ -392,7 +402,7 @@ FORM;
                         "state" => 2
                     ]
                 ];
-            } elseif ($order->status == "cancelled" || $order->status == "refunded") { // handle cancelled order
+            } elseif ($order->get_status() == "cancelled" || $order->get_status() == "refunded") { // handle cancelled order
                 $response = $this->error_cancelled_transaction($payload);
             } else {
                 $response = $this->error_unknown($payload);
@@ -414,40 +424,24 @@ FORM;
                 "result" => [
                     "create_time"  => $this->get_create_time($order),
                     "perform_time" => (is_null($this->get_perform_time($order)) ? 0: $this->get_perform_time($order) ) ,
-                    "cancel_time"  => (is_null($this->get_cancel_time($order))  ? 0: $this->get_cancel_time($order) ) ,
+                    "cancel_time"  => (is_null($this->get_cancel_time ($order)) ? 0: $this->get_cancel_time($order) ) ,
                     "transaction"  => "000" . $order->get_id(),
-                    "state" => null,
-                    "reason" => null
+                    "state"        => null,
+                    "reason"       => (is_null($this->get_cencel_reason($order)) ? null: $this->get_cencel_reason($order) )
                 ],
                 "error" => null
             ];
 
             if ($transaction_id == $saved_transaction_id) {
-                switch ($order->status) {
-                    case 'processing':
-                        $response['result']['state'] = 1;
-                        break;
-
-                    case 'completed':
-                        $response['result']['state'] = 2;
-                        break;
-
-                    case 'cancelled':
-                        $response['result']['state'] = -1;
-                        $response['result']['reason'] = 2;
-                        $response['result']['cancel_time'] = $this->get_cancel_time($order);
-                        break;
-
-                    case 'refunded':
-                        $response['result']['state'] = -2;
-                        $response['result']['reason'] = 5;
-                        $response['result']['perform_time'] = $this->get_perform_time($order);
-                        $response['result']['cancel_time'] = $this->get_cancel_time($order);
-                        break;
-
-                    default:
-                        $response = $this->error_transaction($payload);
-                        break;
+				
+                switch ($order->get_status()) {
+					 
+					case 'processing': $response['result']['state'] = 1;  break;
+                    case 'completed':  $response['result']['state'] = 2;  break;
+                    case 'cancelled':  $response['result']['state'] = -1; break;
+                    case 'refunded':   $response['result']['state'] = -2; break;
+					
+                    default: $response = $this->error_transaction($payload); break;
                 }
             } else {
                 $response = $this->error_transaction($payload);
@@ -476,17 +470,32 @@ FORM;
                     ]
                 ];
 
-                switch ($order->status) {
+                switch ($order->get_status()) {
                     case 'pending':
                         add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
                         $order->update_status('cancelled'); // Change status to Cancelled
                         $response['result']['state'] = -1;
+						
+						if (update_post_meta($order->get_id(), '_cancel_reason', $payload['params']['reason'])) {
+							add_post_meta   ($order->get_id(), '_cancel_reason', $payload['params']['reason'], true);
+						}
                         break;
+					case 'processing':
+                        add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
+                        $order->update_status('cancelled'); // Change status to Cancelled
+                        $response['result']['state'] = -1;
+						if (update_post_meta($order->get_id(), '_cancel_reason', $payload['params']['reason'])) {
+							add_post_meta   ($order->get_id(), '_cancel_reason', $payload['params']['reason'], true);
+						}
+                        break;	
 
                     case 'completed':
                         add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
                         $order->update_status('refunded'); // Change status to Refunded
                         $response['result']['state'] = -2;
+						if (update_post_meta($order->get_id(), '_cancel_reason', $payload['params']['reason'])) {
+							add_post_meta   ($order->get_id(), '_cancel_reason', $payload['params']['reason'], true);
+						}
                         break;
 
                     case 'cancelled':

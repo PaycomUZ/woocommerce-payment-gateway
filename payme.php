@@ -3,7 +3,7 @@
 Plugin Name: Payme
 Plugin URI:  http://paycom.uz
 Description: Payme Checkout Plugin for WooCommerce
-Version: 1.0.2
+Version: 1.4.0
 Author: richman@mail.ru, support@paycom.uz
 Text Domain: payme
  */

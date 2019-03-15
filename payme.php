@@ -13,21 +13,21 @@ if (!defined('ABSPATH')) exit;
 
 add_action('plugins_loaded', 'woocommerce_payme', 0);
 
-if (!function_exists('getallheaders')) 
-{ 
-    function getallheaders() 
-    { 
-           $headers = []; 
-       foreach ($_SERVER as $name => $value) 
-       { 
-           if (substr($name, 0, 5) == 'HTTP_') 
-           { 
-               $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
-           } 
-       } 
-       return $headers; 
-    } 
-} 
+if (!function_exists('getallheaders'))
+{
+    function getallheaders()
+    {
+           $headers = [];
+       foreach ($_SERVER as $name => $value)
+       {
+           if (substr($name, 0, 5) == 'HTTP_')
+           {
+               $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+           }
+       }
+       return $headers;
+    }
+}
 
 function woocommerce_payme()
 {
@@ -136,6 +136,10 @@ function woocommerce_payme()
             $label_pay = __('Pay', 'payme');
             $label_cancel = __('Cancel payment and return back', 'payme');
 
+            $actual_link = "http://$_SERVER[HTTP_HOST]";
+            $return_link = $actual_link."/my-account/view-order/".$order_id."/";
+
+
             $form = <<<FORM
 <form action="{$this->checkout_url}" method="POST" id="payme_form">
 <input type="hidden" name="account[order_id]" value="$order_id">
@@ -143,6 +147,7 @@ function woocommerce_payme()
 <input type="hidden" name="merchant" value="{$this->merchant_id}">
 <input type="hidden" name="lang" value="$lang">
 <input type="hidden" name="description" value="$description">
+<input type="hidden" name="callback" value="$return_link"/>
 <input type="submit" class="button alt" id="submit_payme_form" value="$label_pay">
 <a class="button cancel" href="{$order->get_cancel_order_url()}">$label_cancel</a>
 </form>
@@ -186,7 +191,7 @@ FORM;
 
             // Authorize client
             $headers = getallheaders();
-			
+
 			$v=html_entity_decode($this->merchant_key);
 			$encoded_credentials = base64_encode("Paycom:".$v);
             //$encoded_credentials = base64_encode("Paycom:{$this->merchant_key}");
@@ -311,11 +316,11 @@ FORM;
         {
             return (string)get_post_meta($order->get_id(), '_payme_transaction_id', true);
         }
-		
+
 		private function get_cencel_reason(WC_Order $order)
         {
            $b_v=(int)get_post_meta($order->get_id(), '_cancel_reason', true);
-		   
+
 		   if ($b_v)  return $b_v;
 		   else return null;
         }
@@ -408,7 +413,7 @@ FORM;
                 // Mark order as completed
                 $order->update_status('completed');
                 $order->payment_complete($payload['params']['id']);
-				
+
             } elseif ($order->get_status() == "completed") { // handle existing Perform request
                 $response = [
                     "id" => $payload['id'],
@@ -449,14 +454,14 @@ FORM;
             ];
 
             if ($transaction_id == $saved_transaction_id) {
-				
+
                 switch ($order->get_status()) {
-					 
+
 					case 'processing': $response['result']['state'] = 1;  break;
                     case 'completed':  $response['result']['state'] = 2;  break;
                     case 'cancelled':  $response['result']['state'] = -1; break;
                     case 'refunded':   $response['result']['state'] = -2; break;
-					
+
                     default: $response = $this->error_transaction($payload); break;
                 }
             } else {
@@ -491,7 +496,7 @@ FORM;
                         add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
                         $order->update_status('cancelled'); // Change status to Cancelled
                         $response['result']['state'] = -1;
-						
+
 						if (update_post_meta($order->get_id(), '_cancel_reason', $payload['params']['reason'])) {
 							add_post_meta   ($order->get_id(), '_cancel_reason', $payload['params']['reason'], true);
 						}
@@ -503,7 +508,7 @@ FORM;
 						if (update_post_meta($order->get_id(), '_cancel_reason', $payload['params']['reason'])) {
 							add_post_meta   ($order->get_id(), '_cancel_reason', $payload['params']['reason'], true);
 						}
-                        break;	
+                        break;
 
                     case 'completed':
                         add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time

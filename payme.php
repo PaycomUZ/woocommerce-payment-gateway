@@ -136,8 +136,8 @@ function woocommerce_payme()
             $label_pay = __('Pay', 'payme');
             $label_cancel = __('Cancel payment and return back', 'payme');
 
-            $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-            $return_link = str_replace("pay/","received/",$actual_link);
+            $actual_link = "http://$_SERVER[HTTP_HOST]";
+            $return_link = $actual_link."/my-account/view-order/".$order_id."/";
 
 
             $form = <<<FORM

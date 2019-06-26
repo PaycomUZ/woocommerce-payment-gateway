@@ -68,6 +68,19 @@ function woocommerce_payme()
             add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
             add_action('woocommerce_api_wc_' . $this->id, [$this, 'callback']);
         }
+		
+		function showMessage($content)
+        {
+            return '
+        <h1>' . $this->msg['title'] . '</h1>
+        <div class="box ' . $this->msg['class'] . '-box">' . $this->msg['message'] . '</div>
+        ';
+        }
+
+        function showTitle($title)
+        {
+            return false;
+        }
 
         public function admin_options()
         {
@@ -784,5 +797,42 @@ FORM;
 
     add_filter('woocommerce_payment_gateways', 'add_payme_gateway');
 }
+
+/////////////// success page
+
+add_filter('query_vars', 'payme_success_query_vars');
+function payme_success_query_vars($query_vars)
+{
+    $query_vars[] = 'payme_success';
+    return $query_vars;
+}
+
+
+add_action('parse_request', 'payme_success_parse_request');
+function payme_success_parse_request(&$wp)
+{
+    if (array_key_exists('payme_success', $wp->query_vars)) {
+		
+        $a = new WC_PAYME();
+        add_action('the_title',   array($a, 'showTitle'));
+        add_action('the_content', array($a, 'showMessage'));
+
+        if ($wp->query_vars['payme_success'] == 1) {
+	
+            $a->msg['title']   =  'Платеж успешно оплачен';
+            $a->msg['message'] =  'Благодарим вас за покупку!';
+            $a->msg['class']   = 'woocommerce_message woocommerce_message_info';
+            WC()->cart->empty_cart();
+           
+        } else {
+            $a->msg['title'] = 'Платеж не оплачен';
+            $a->msg['message'] = 'Во время платежа произошла ошибка. Повторите попытку или обратитесь к администратору';
+            $a->msg['class'] = 'woocommerce_message woocommerce_message_info';
+        }
+    }
+    return;
+}
+
+/////////////// success page end
 
 ?>

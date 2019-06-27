@@ -3,7 +3,7 @@
 Plugin Name: Payme
 Plugin URI:  http://paycom.uz
 Description: Payme Checkout Plugin for WooCommerce
-Version: 1.4.2
+Version: 1.4.3
 Author: richman@mail.ru, support@paycom.uz
 Text Domain: payme
  */
@@ -126,6 +126,12 @@ function woocommerce_payme()
                     'type' => 'text',
                     'description' => __('Set Paycom Checkout URL to submit a payment', 'payme'),
                     'default' => 'https://checkout.paycom.uz'
+                ],
+				'return_url' => [
+                    'title' => __('Return URL', 'payme'),
+                    'type' => 'text',
+                    'description' => __('Set Paycom return URL', 'payme'),
+                    'default' => site_url('/cart/?payme_success=1')
                 ]
             ];
         }
@@ -154,6 +160,7 @@ function woocommerce_payme()
 <input type="hidden" name="account[order_id]" value="$order_id">
 <input type="hidden" name="amount" value="$sum">
 <input type="hidden" name="merchant" value="{$this->merchant_id}">
+<input type="hidden" name="callback" value="{$this->return_url}">
 <input type="hidden" name="lang" value="$lang">
 <input type="hidden" name="description" value="$description">
 <input type="submit" class="button alt" id="submit_payme_form" value="$label_pay">

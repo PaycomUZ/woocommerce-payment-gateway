@@ -3,7 +3,7 @@
 Plugin Name: Payme
 Plugin URI:  http://paycom.uz
 Description: Payme Checkout Plugin for WooCommerce
-Version: 1.4.3
+Version: 1.4.4
 Author: richman@mail.ru, support@paycom.uz
 Text Domain: payme
  */
@@ -826,15 +826,15 @@ function payme_success_parse_request(&$wp)
 
         if ($wp->query_vars['payme_success'] == 1) {
 	
-            $a->msg['title']   =  'Платеж успешно оплачен';
-            $a->msg['message'] =  'Благодарим вас за покупку!';
+            $a->msg['title']   =  __('Payment successfully paid', 'payme');
+            $a->msg['message'] =  __('Thank you for your purchase!', 'payme');
             $a->msg['class']   = 'woocommerce_message woocommerce_message_info';
             WC()->cart->empty_cart();
            
         } else {
-            $a->msg['title'] = 'Платеж не оплачен';
-            $a->msg['message'] = 'Во время платежа произошла ошибка. Повторите попытку или обратитесь к администратору';
-            $a->msg['class'] = 'woocommerce_message woocommerce_message_info';
+            $a->msg['title']   =  __('Payment not paid', 'payme');
+            $a->msg['message'] =  __('An error occurred during payment. Try again or contact your administrator.', 'payme');
+            $a->msg['class']   = 'woocommerce_message woocommerce_message_info';
         }
     }
     return;

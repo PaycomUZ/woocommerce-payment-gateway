@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PayMe\n"
-"POT-Creation-Date: 2017-05-03 11:37+0500\n"
-"PO-Revision-Date: 2017-05-03 11:38+0500\n"
+"POT-Creation-Date: 2019-06-27 09:25+0500\n"
+"PO-Revision-Date: 2019-06-27 09:31+0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -22,118 +22,145 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: payme.php:39
+#: payme.php:55
 msgid "Payment system Payme"
 msgstr "Платежная система Payme"
 
 #. Plugin Name of the plugin/theme
-#: payme.php:59
+#: payme.php:88
 msgid "Payme"
 msgstr "Payme"
 
-#: payme.php:61
+#: payme.php:90
 msgid "Configure checkout settings"
 msgstr "Настройте параметры оплаты"
 
-#: payme.php:64
+#: payme.php:93
 msgid "Your Web Cash Endpoint URL to handle requests is:"
 msgstr "Ваш URL для обработки запросов:"
 
-#: payme.php:78
+#: payme.php:107
 msgid "Enable/Disable"
 msgstr "Включен/Отключен"
 
-#: payme.php:80
+#: payme.php:109
 msgid "Enabled"
 msgstr "Включен"
 
-#: payme.php:84
+#: payme.php:113
 msgid "Merchant ID"
 msgstr "ID поставщика"
 
-#: payme.php:86
+#: payme.php:115
 msgid "Obtain and set Merchant ID from the Paycom Merchant Cabinet"
 msgstr "Используйте ID поставщика из кабинета мерчанта"
 
-#: payme.php:90
+#: payme.php:119
 msgid "KEY"
 msgstr "Ключ - пароль кассы"
 
-#: payme.php:92
+#: payme.php:121
 msgid "Obtain and set KEY from the Paycom Merchant Cabinet"
 msgstr "Используйте пароль от кабинета мерчанта"
 
-#: payme.php:96
+#: payme.php:125
 msgid "Checkout URL"
 msgstr "Checkout URL"
 
-#: payme.php:98
+#: payme.php:127
 msgid "Set Paycom Checkout URL to submit a payment"
 msgstr "Установите Paycom Checkout URL для подтверждения оплаты"
 
-#: payme.php:115
+#: payme.php:131
+msgid "Return URL"
+msgstr "URL возврата"
+
+#: payme.php:133
+msgid "Set Paycom return URL"
+msgstr "Введите обратный URL"
+
+#: payme.php:150
 #, php-format
 msgid "Payment for Order #%1$s"
 msgstr "Оплата заказа №%1$s"
 
-#: payme.php:120
+#: payme.php:155
 msgid "Pay"
 msgstr "Оплатить"
 
-#: payme.php:121
+#: payme.php:156
 msgid "Cancel payment and return back"
 msgstr "Отказаться от платежа и вернуться"
 
-#: payme.php:154
+#: payme.php:191
 msgid "Thank you for your order, press \"Pay\" button to continue."
 msgstr "Спасибо за покупку. Нажмите \"Оплатить\" для продолжения."
 
-#: payme.php:504 payme.php:505 payme.php:506
+#: payme.php:592 payme.php:593 payme.php:594
 msgid "Cannot change the password"
 msgstr "Не удалось изменить пароль"
 
-#: payme.php:523 payme.php:524 payme.php:525
+#: payme.php:611 payme.php:612 payme.php:613
 msgid "Could not parse JSON"
 msgstr "Парсинг JSON невозможен"
 
-#: payme.php:542 payme.php:543 payme.php:544
+#: payme.php:630 payme.php:631 payme.php:632
 msgid "Order number cannot be found"
 msgstr "Номер заказа не найден"
 
-#: payme.php:561 payme.php:562 payme.php:563
+#: payme.php:649 payme.php:650 payme.php:651
 msgid "Other transaction for this order is in progress"
 msgstr "Оплата запущена. Повторная оплата - невозможна"
 
-#: payme.php:580 payme.php:581 payme.php:582
+#: payme.php:668 payme.php:669 payme.php:670
 msgid "Order amount is incorrect"
 msgstr "Неверная сумма заказа"
 
-#: payme.php:599 payme.php:600 payme.php:601
+#: payme.php:687 payme.php:688 payme.php:689
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
-#: payme.php:618 payme.php:619 payme.php:620
+#: payme.php:706 payme.php:707 payme.php:708
 msgid "Unknown method"
 msgstr "Неизвестный метод"
 
-#: payme.php:637 payme.php:638 payme.php:639
+#: payme.php:725 payme.php:726 payme.php:727
 msgid "Transaction number is wrong"
 msgstr "Неверный номер транзакции"
 
-#: payme.php:656 payme.php:657 payme.php:658
+#: payme.php:744 payme.php:745 payme.php:746
 msgid "Transaction was cancelled or refunded"
 msgstr "Транзакция отменена или возвращена"
 
-#: payme.php:675 payme.php:676 payme.php:677
+#: payme.php:763 payme.php:764 payme.php:765
 msgid "It is impossible to cancel. The order is completed"
 msgstr "Заказ выполнен. Отмена невозможна"
 
-#: payme.php:695 payme.php:696 payme.php:697
+#: payme.php:783 payme.php:784 payme.php:785
 msgid "Error during authorization"
 msgstr "Ошибка авторизации"
 
+#: payme.php:829
+msgid "Payment successfully paid"
+msgstr "Платеж успешно оплачен"
+
+#: payme.php:830
+msgid "Thank you for your purchase!"
+msgstr "Благодарим вас за покупку!"
+
+#: payme.php:835
+msgid "Payment not paid"
+msgstr "Платеж не оплачен"
+
+#: payme.php:836
+msgid ""
+"An error occurred during payment. Try again or contact your administrator."
+msgstr ""
+"Во время платежа произошла ошибка. Повторите попытку или обратитесь к "
+"администратору."
+
 #. Plugin URI of the plugin/theme
-msgid "https://paycom.uz"
+msgid "http://paycom.uz"
 msgstr "https://paycom.uz"
 
 #. Description of the plugin/theme

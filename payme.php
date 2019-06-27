@@ -46,6 +46,7 @@ function woocommerce_payme()
         protected $merchant_id;
         protected $merchant_key;
         protected $checkout_url;
+		protected $return_url;
 
         public function __construct()
         {
@@ -63,6 +64,7 @@ function woocommerce_payme()
             $this->merchant_id = $this->get_option('merchant_id');
             $this->merchant_key = $this->get_option('merchant_key');
             $this->checkout_url = $this->get_option('checkout_url');
+			$this->return_url   = $this->get_option('return_url');
 
             add_action('woocommerce_receipt_' . $this->id, [$this, 'receipt_page']);
             add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);

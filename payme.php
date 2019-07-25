@@ -156,13 +156,15 @@ function woocommerce_payme()
 
             $label_pay = __('Pay', 'payme');
             $label_cancel = __('Cancel payment and return back', 'payme');
+			
+			$callbackUrl=$this->return_url.'&order_id='.$order_id;
 
             $form = <<<FORM
 <form action="{$this->checkout_url}" method="POST" id="payme_form">
 <input type="hidden" name="account[order_id]" value="$order_id">
 <input type="hidden" name="amount" value="$sum">
 <input type="hidden" name="merchant" value="{$this->merchant_id}">
-<input type="hidden" name="callback" value="{$this->return_url}">
+<input type="hidden" name="callback" value="{$callbackUrl}">
 <input type="hidden" name="lang" value="$lang">
 <input type="hidden" name="description" value="$description">
 <input type="submit" class="button alt" id="submit_payme_form" value="$label_pay">
@@ -811,8 +813,9 @@ FORM;
 
 add_filter('query_vars', 'payme_success_query_vars');
 function payme_success_query_vars($query_vars)
-{
-    $query_vars[] = 'payme_success';
+{	
+	$query_vars[] = 'payme_success';
+	$query_vars[] = 'order_id';
     return $query_vars;
 }
 
@@ -820,20 +823,33 @@ function payme_success_query_vars($query_vars)
 add_action('parse_request', 'payme_success_parse_request');
 function payme_success_parse_request(&$wp)
 {
-    if (array_key_exists('payme_success', $wp->query_vars)) {
-		
-        $a = new WC_PAYME();
+	if (array_key_exists('payme_success', $wp->query_vars)) {
+
+         $order = new WC_Order($wp->query_vars['order_id']);
+
+		$a = new WC_PAYME();
         add_action('the_title',   array($a, 'showTitle'));
         add_action('the_content', array($a, 'showMessage'));
 
         if ($wp->query_vars['payme_success'] == 1) {
-	
+
+			if ($order->get_status() == "pending") {
+			/*
+			$a->msg['title']   =  __('Payment not paid', 'payme');
+            $a->msg['message'] =  __('An error occurred during payment. Try again or contact your administrator.', 'payme');
+            $a->msg['class']   = 'woocommerce_message woocommerce_message_info';
+			*/
+			wp_redirect($order->get_cancel_order_url());
+			} else {
+
             $a->msg['title']   =  __('Payment successfully paid', 'payme');
             $a->msg['message'] =  __('Thank you for your purchase!', 'payme');
             $a->msg['class']   = 'woocommerce_message woocommerce_message_info';
             WC()->cart->empty_cart();
+			}
            
         } else {
+
             $a->msg['title']   =  __('Payment not paid', 'payme');
             $a->msg['message'] =  __('An error occurred during payment. Try again or contact your administrator.', 'payme');
             $a->msg['class']   = 'woocommerce_message woocommerce_message_info';

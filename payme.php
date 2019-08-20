@@ -284,7 +284,7 @@ FORM;
          */
         private function amount_to_coin($amount)
         {
-            return 100 * number_format($amount, 0, '.', '');
+            return 100 * number_format($amount, 2, '.', '');
         }
 
         /**

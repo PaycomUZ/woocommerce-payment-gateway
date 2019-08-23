@@ -1,3 +1,3 @@
 .idea
-lang/*.mo
-lang/*.po~
+*
+!lang/*.po

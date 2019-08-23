@@ -1,0 +1,148 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PayMe\n"
+"POT-Creation-Date: 2017-05-03 11:38+0500\n"
+"PO-Revision-Date: 2019-08-06 18:36+0000\n"
+"Last-Translator: admin <toir427@gmail.com>\n"
+"Language-Team: Uzbek\n"
+"Language: uz_UZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: payme.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.3.0; wp-5.2.2"
+
+#: payme.php:39
+msgid "Payment system Payme"
+msgstr "Payme to`lov tizimi"
+
+#. Plugin Name of the plugin/theme
+#: payme.php:59
+msgid "Payme"
+msgstr "Payme"
+
+#: payme.php:61
+msgid "Configure checkout settings"
+msgstr "To`lov parametrlarini sozlang"
+
+#: payme.php:64
+msgid "Your Web Cash Endpoint URL to handle requests is:"
+msgstr "Sizning so`rovlarni qayta ishlash URL-ingiz"
+
+#: payme.php:78
+msgid "Enable/Disable"
+msgstr "Yoqilgan/O`chirilgan"
+
+#: payme.php:80
+msgid "Enabled"
+msgstr "Yoqilgan"
+
+#: payme.php:84
+msgid "Merchant ID"
+msgstr "Xizmat ko`rsatuvchi IDsi"
+
+#: payme.php:86
+msgid "Obtain and set Merchant ID from the Paycom Merchant Cabinet"
+msgstr "Paycom kabinetidagi kassa ID-sidan foydalaning"
+
+#: payme.php:90
+msgid "KEY"
+msgstr "Kalit - kassa paroli"
+
+#: payme.php:92
+msgid "Obtain and set KEY from the Paycom Merchant Cabinet"
+msgstr "Paycom kabinetidagi kassa kaliti - parolidan foydalaning"
+
+#: payme.php:96
+msgid "Checkout URL"
+msgstr "Checkout URL"
+
+#: payme.php:98
+msgid "Set Paycom Checkout URL to submit a payment"
+msgstr "To`lov so`rovlarini yuborish uchun Paycom Checkout URL-ini ko`rsating"
+
+#: payme.php:115
+#, php-format
+msgid "Payment for Order #%1$s"
+msgstr "№%1$s xarid uchun to‘lov"
+
+#: payme.php:120
+msgid "Pay"
+msgstr "To`lash"
+
+#: payme.php:121
+msgid "Cancel payment and return back"
+msgstr "To`lovni bekor qilib, orqaga qaytish"
+
+#: payme.php:154
+msgid "Thank you for your order, press \"Pay\" button to continue."
+msgstr ""
+"Xaridingiz uchun rahmat. Xaridni amalga oshirish uchun “To‘lash”ni bosing."
+
+#: payme.php:504 payme.php:505 payme.php:506
+msgid "Cannot change the password"
+msgstr "Parol o`zgartirilmadi"
+
+#: payme.php:523 payme.php:524 payme.php:525
+msgid "Could not parse JSON"
+msgstr "JSON ma`lumotlarda xatolik mavjud"
+
+#: payme.php:542 payme.php:543 payme.php:544
+msgid "Order number cannot be found"
+msgstr "Buyurtma raqami topilmadi"
+
+#: payme.php:561 payme.php:562 payme.php:563
+msgid "Other transaction for this order is in progress"
+msgstr "Bu buyurtma uchun boshqa aktiv tranzaksiya mavjud"
+
+#: payme.php:580 payme.php:581 payme.php:582
+msgid "Order amount is incorrect"
+msgstr "Buyurtma summasi xato"
+
+#: payme.php:599 payme.php:600 payme.php:601
+msgid "Unknown error"
+msgstr "Noma`lum xatolik"
+
+#: payme.php:618 payme.php:619 payme.php:620
+msgid "Unknown method"
+msgstr "Noma`lum metod"
+
+#: payme.php:637 payme.php:638 payme.php:639
+msgid "Transaction number is wrong"
+msgstr "Tranzaksiya raqami xato"
+
+#: payme.php:656 payme.php:657 payme.php:658
+msgid "Transaction was cancelled or refunded"
+msgstr "Tranzaksiya bekor qilingan yoki qaytarilgan"
+
+#: payme.php:675 payme.php:676 payme.php:677
+msgid "It is impossible to cancel. The order is completed"
+msgstr "Buyurtma bajarilgan - uni bekor qilib bo`lmaydi"
+
+#: payme.php:695 payme.php:696 payme.php:697
+msgid "Error during authorization"
+msgstr "Avtorizatsiyada xatolik"
+
+#. Plugin URI of the plugin/theme
+msgid "https://paycom.uz"
+msgstr "https://paycom.uz"
+
+#. Description of the plugin/theme
+msgid "Payme Checkout Plugin for WooCommerce"
+msgstr "WooCommerce uchun Payme plagini"
+
+#. Author of the plugin/theme
+msgid "richman@mail.ru, support@paycom.uz"
+msgstr "richman@mail.ru, support@paycom.uz"

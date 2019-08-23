@@ -1,1 +1,3 @@
 .idea
+lang/*.mo
+lang/*.po~

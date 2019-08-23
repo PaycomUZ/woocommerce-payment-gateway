@@ -3,7 +3,7 @@
 Plugin Name: Payme
 Plugin URI:  http://paycom.uz
 Description: Payme Checkout Plugin for WooCommerce
-Version: 1.4.6
+Version: 1.4.5
 Author: richman@mail.ru, support@paycom.uz
 Text Domain: payme
  */
@@ -13,21 +13,21 @@ if (!defined('ABSPATH')) exit;
 
 add_action('plugins_loaded', 'woocommerce_payme', 0);
 
-if (!function_exists('getallheaders')) 
-{ 
-    function getallheaders() 
-    { 
-           $headers = []; 
-       foreach ($_SERVER as $name => $value) 
-       { 
-           if (substr($name, 0, 5) == 'HTTP_') 
-           { 
-               $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value; 
-           } 
-       } 
-       return $headers; 
-    } 
-} 
+if (!function_exists('getallheaders'))
+{
+    function getallheaders()
+    {
+           $headers = [];
+       foreach ($_SERVER as $name => $value)
+       {
+           if (substr($name, 0, 5) == 'HTTP_')
+           {
+               $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+           }
+       }
+       return $headers;
+    }
+}
 
 function woocommerce_payme()
 {
@@ -65,12 +65,15 @@ function woocommerce_payme()
             $this->merchant_key = $this->get_option('merchant_key');
             $this->checkout_url = $this->get_option('checkout_url');
 			$this->return_url   = $this->get_option('return_url');
+			if (function_exists('pll__')){
+                $this->return_url   = pll_get_post($this->get_option('return_url'));
+            }
 
             add_action('woocommerce_receipt_' . $this->id, [$this, 'receipt_page']);
             add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
             add_action('woocommerce_api_wc_' . $this->id, [$this, 'callback']);
         }
-		
+
 		function showMessage($content)
         {
             return '
@@ -104,6 +107,15 @@ function woocommerce_payme()
 
         public function init_form_fields()
         {
+            /* @var $pages WP_Post[] */
+            $pages = get_pages();
+            $options = [];
+            if(is_array($pages)&&count($pages)) {
+                foreach ($pages as $page) {
+                    $options[$page->ID] = $page->post_title;
+                }
+            }
+
             $this->form_fields = [
                 'enabled' => [
                     'title' => __('Enable/Disable', 'payme'),
@@ -131,9 +143,9 @@ function woocommerce_payme()
                 ],
 				'return_url' => [
                     'title' => __('Return URL', 'payme'),
-                    'type' => 'text',
+                    'type' => 'select',
                     'description' => __('Set Paycom return URL', 'payme'),
-                    'default' => site_url('/cart/?payme_success=1')
+                    'options' => $options
                 ]
             ];
         }
@@ -156,7 +168,7 @@ function woocommerce_payme()
 
             $label_pay = __('Pay', 'payme');
             $label_cancel = __('Cancel payment and return back', 'payme');
-			
+
 			$callbackUrl=$this->return_url.'&order_id='.$order_id;
 
             $form = <<<FORM
@@ -210,7 +222,7 @@ FORM;
 
             // Authorize client
             $headers = getallheaders();
-			
+
 			$v=html_entity_decode($this->merchant_key);
 			$encoded_credentials = base64_encode("Paycom:".$v);
             //$encoded_credentials = base64_encode("Paycom:{$this->merchant_key}");
@@ -335,11 +347,11 @@ FORM;
         {
             return (string)get_post_meta($order->get_id(), '_payme_transaction_id', true);
         }
-		
+
 		private function get_cencel_reason(WC_Order $order)
         {
            $b_v=(int)get_post_meta($order->get_id(), '_cancel_reason', true);
-		   
+
 		   if ($b_v)  return $b_v;
 		   else return null;
         }
@@ -432,7 +444,7 @@ FORM;
                 // Mark order as completed
                 $order->update_status('completed');
                 $order->payment_complete($payload['params']['id']);
-				
+
             } elseif ($order->get_status() == "completed") { // handle existing Perform request
                 $response = [
                     "id" => $payload['id'],
@@ -473,14 +485,14 @@ FORM;
             ];
 
             if ($transaction_id == $saved_transaction_id) {
-				
+
                 switch ($order->get_status()) {
-					 
+
 					case 'processing': $response['result']['state'] = 1;  break;
                     case 'completed':  $response['result']['state'] = 2;  break;
                     case 'cancelled':  $response['result']['state'] = -1; break;
                     case 'refunded':   $response['result']['state'] = -2; break;
-					
+
                     default: $response = $this->error_transaction($payload); break;
                 }
             } else {
@@ -515,7 +527,7 @@ FORM;
                         add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
                         $order->update_status('cancelled'); // Change status to Cancelled
                         $response['result']['state'] = -1;
-						
+
 						if (update_post_meta($order->get_id(), '_cancel_reason', $payload['params']['reason'])) {
 							add_post_meta   ($order->get_id(), '_cancel_reason', $payload['params']['reason'], true);
 						}
@@ -527,7 +539,7 @@ FORM;
 						if (update_post_meta($order->get_id(), '_cancel_reason', $payload['params']['reason'])) {
 							add_post_meta   ($order->get_id(), '_cancel_reason', $payload['params']['reason'], true);
 						}
-                        break;	
+                        break;
 
                     case 'completed':
                         add_post_meta($order->get_id(), '_payme_cancel_time', $cancel_time, true); // Save cancel time
@@ -813,7 +825,7 @@ FORM;
 
 add_filter('query_vars', 'payme_success_query_vars');
 function payme_success_query_vars($query_vars)
-{	
+{
 	$query_vars[] = 'payme_success';
 	$query_vars[] = 'order_id';
     return $query_vars;
@@ -847,7 +859,7 @@ function payme_success_parse_request(&$wp)
             $a->msg['class']   = 'woocommerce_message woocommerce_message_info';
             WC()->cart->empty_cart();
 			}
-           
+
         } else {
 
             $a->msg['title']   =  __('Payment not paid', 'payme');

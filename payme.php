@@ -63,7 +63,8 @@ function woocommerce_payme()
             $this->checkout_url = $this->get_option('checkout_url');
             $this->return_url   = $this->get_option('return_url');
             if (function_exists('pll__')) {
-                $this->return_url = pll_get_post($this->get_option('return_url'));
+                $postId           = pll_get_post($this->return_url);
+                $this->return_url = get_page_link($postId);
             }
 
             add_action('woocommerce_receipt_' . $this->id, [$this, 'receipt_page']);
@@ -166,7 +167,10 @@ function woocommerce_payme()
             $label_pay    = __('Pay', 'payme');
             $label_cancel = __('Cancel payment and return back', 'payme');
 
-            $callbackUrl = $this->return_url . '&order_id=' . $order_id;
+            $url         = $this->return_url;
+            $query       = parse_url($url, PHP_URL_QUERY);
+            $url         .= $query ? '&order_id=' . $order_id : '?order_id=' . $order_id;
+            $callbackUrl = urlencode($url);
 
             $form = <<<FORM
 <form action="{$this->checkout_url}" method="POST" id="payme_form">

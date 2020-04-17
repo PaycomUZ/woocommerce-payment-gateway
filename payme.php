@@ -3,7 +3,7 @@
 Plugin Name: Payme
 Plugin URI:  http://paycom.uz
 Description: Payme Checkout Plugin for WooCommerce
-Version: 1.4.6
+Version: 1.4.8
 Author: richman@mail.ru, support@paycom.uz
 Text Domain: payme
  */
@@ -111,6 +111,12 @@ function woocommerce_payme()
                     'label' => __('Enabled', 'payme'),
                     'default' => 'yes'
                 ],
+		'complete_order' => [
+                    'title' => __('Order auto complete', 'payme'),
+                    'type' => 'checkbox',
+                    'label' => __('If disabled, you have to manually change order status to COMPLETE after success payment', 'payme'),
+                    'default' => 'yes'
+                ],
                 'merchant_id' => [
                     'title' => __('Merchant ID', 'payme'),
                     'type' => 'text',
@@ -156,8 +162,7 @@ function woocommerce_payme()
 
             $label_pay = __('Pay', 'payme');
             $label_cancel = __('Cancel payment and return back', 'payme');
-			
-			$callbackUrl=$this->return_url.'&order_id='.$order_id;
+	    $callbackUrl=$this->return_url.'/'.$order_id.'/?key='.$order->get_order_key();	
 
             $form = <<<FORM
 <form action="{$this->checkout_url}" method="POST" id="payme_form">
@@ -428,9 +433,10 @@ FORM;
                         "state" => 2
                     ]
                 ];
-
-                // Mark order as completed
-                $order->update_status('completed');
+		if ($this->complete_order){
+		 	// Mark order as completed
+                	$order->update_status('completed'){
+		}
                 $order->payment_complete($payload['params']['id']);
 				
             } elseif ($order->get_status() == "completed") { // handle existing Perform request

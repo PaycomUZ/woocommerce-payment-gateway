@@ -46,7 +46,8 @@ function woocommerce_payme()
         protected $merchant_id;
         protected $merchant_key;
         protected $checkout_url;
-		protected $return_url;
+	protected $return_url;
+	protected $complete_order;
 
         public function __construct()
         {
@@ -64,7 +65,8 @@ function woocommerce_payme()
             $this->merchant_id = $this->get_option('merchant_id');
             $this->merchant_key = $this->get_option('merchant_key');
             $this->checkout_url = $this->get_option('checkout_url');
-			$this->return_url   = $this->get_option('return_url');
+	    $this->return_url   = $this->get_option('return_url');
+	    $this->complete_order   = $this->get_option('complete_order');
 
             add_action('woocommerce_receipt_' . $this->id, [$this, 'receipt_page']);
             add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
@@ -433,7 +435,7 @@ FORM;
                         "state" => 2
                     ]
                 ];
-		if ($this->complete_order){
+		if ($this->complete_order === 'yes'){
 		 	// Mark order as completed
                 	$order->update_status('completed'){
 		}

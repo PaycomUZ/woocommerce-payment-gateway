@@ -3,7 +3,7 @@
 Plugin Name: Payme
 Plugin URI:  http://paycom.uz
 Description: Payme Checkout Plugin for WooCommerce
-Version: 1.4.6
+Version: 1.4.7
 Author: richman@mail.ru, support@paycom.uz
 Text Domain: payme
  */
@@ -157,8 +157,7 @@ function woocommerce_payme()
             $label_pay = __('Pay', 'payme');
             $label_cancel = __('Cancel payment and return back', 'payme');
 			
-			$callbackUrl=$this->return_url.'&order_id='.$order_id;
-
+			$callbackUrl=$this->return_url.'/'.$order_id.'/?key='.$order->get_order_key();
             $form = <<<FORM
 <form action="{$this->checkout_url}" method="POST" id="payme_form">
 <input type="hidden" name="account[order_id]" value="$order_id">

@@ -437,8 +437,9 @@ FORM;
                 ];
 		if ($this->complete_order === 'yes'){
 		 	// Mark order as completed
-                	$order->update_status('completed'){
+                	$order->update_status('completed');
 		}
+		
                 $order->payment_complete($payload['params']['id']);
 				
             } elseif ($order->get_status() == "completed") { // handle existing Perform request

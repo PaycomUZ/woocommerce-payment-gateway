@@ -3,7 +3,7 @@
 Plugin Name: Payme
 Plugin URI:  http://paycom.uz
 Description: Payme Checkout Plugin for WooCommerce
-Version: 1.4.6
+Version: 1.4.8
 Author: richman@mail.ru, support@paycom.uz
 Text Domain: payme
  */
@@ -46,7 +46,8 @@ function woocommerce_payme()
         protected $merchant_id;
         protected $merchant_key;
         protected $checkout_url;
-		protected $return_url;
+	protected $return_url;
+	protected $complete_order;
 
         public function __construct()
         {
@@ -64,7 +65,8 @@ function woocommerce_payme()
             $this->merchant_id = $this->get_option('merchant_id');
             $this->merchant_key = $this->get_option('merchant_key');
             $this->checkout_url = $this->get_option('checkout_url');
-			$this->return_url   = $this->get_option('return_url');
+	    $this->return_url   = $this->get_option('return_url');
+	    $this->complete_order   = $this->get_option('complete_order');
 
             add_action('woocommerce_receipt_' . $this->id, [$this, 'receipt_page']);
             add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
@@ -109,6 +111,12 @@ function woocommerce_payme()
                     'title' => __('Enable/Disable', 'payme'),
                     'type' => 'checkbox',
                     'label' => __('Enabled', 'payme'),
+                    'default' => 'yes'
+                ],
+		'complete_order' => [
+                    'title' => __('Order auto complete', 'payme'),
+                    'type' => 'checkbox',
+                    'label' => __('If disabled, you have to manually change order status to COMPLETE after success payment', 'payme'),
                     'default' => 'yes'
                 ],
                 'merchant_id' => [
@@ -156,8 +164,7 @@ function woocommerce_payme()
 
             $label_pay = __('Pay', 'payme');
             $label_cancel = __('Cancel payment and return back', 'payme');
-			
-			$callbackUrl=$this->return_url.'&order_id='.$order_id;
+	    $callbackUrl=$this->return_url.'/'.$order_id.'/?key='.$order->get_order_key();	
 
             $form = <<<FORM
 <form action="{$this->checkout_url}" method="POST" id="payme_form">
@@ -428,9 +435,11 @@ FORM;
                         "state" => 2
                     ]
                 ];
-
-                // Mark order as completed
-                $order->update_status('completed');
+		if ($this->complete_order === 'yes'){
+		 	// Mark order as completed
+                	$order->update_status('completed');
+		}
+		
                 $order->payment_complete($payload['params']['id']);
 				
             } elseif ($order->get_status() == "completed") { // handle existing Perform request

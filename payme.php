@@ -111,6 +111,12 @@ function woocommerce_payme()
                     'label' => __('Enabled', 'payme'),
                     'default' => 'yes'
                 ],
+		'complete_order' => [
+                    'title' => __('Order auto complete', 'payme'),
+                    'type' => 'checkbox',
+                    'label' => __('If disabled, you have to manually change order status to COMPLETE after success payment', 'payme'),
+                    'default' => 'yes'
+                ],
                 'merchant_id' => [
                     'title' => __('Merchant ID', 'payme'),
                     'type' => 'text',
@@ -427,9 +433,10 @@ FORM;
                         "state" => 2
                     ]
                 ];
-
-                // Mark order as completed
-                $order->update_status('completed');
+		if ($this->complete_order){
+		 // Mark order as completed
+                $order->update_status('completed'){
+		}
                 $order->payment_complete($payload['params']['id']);
 				
             } elseif ($order->get_status() == "completed") { // handle existing Perform request
